@@ -7,9 +7,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { Toaster } from './presentation/components/ui/toaster';
 import { routes } from './presentation/routes/routers';
 import { AppRoutes } from './shared/appRoutes';
-import { Toaster } from './presentation/components/ui/toaster';
 
 const queryClient = new QueryClient();
 
@@ -66,7 +66,6 @@ const RouteRoot = () => {
 };
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>

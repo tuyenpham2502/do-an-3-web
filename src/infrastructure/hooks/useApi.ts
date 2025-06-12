@@ -1,7 +1,7 @@
+import { useToast } from '@/presentation/hooks/use-toast';
 import { buildUrl } from '@/shared/url';
 import { MutationOptions, UseQueryOptions, useMutation, useQuery } from '@tanstack/react-query';
 import useAxios from './useAxios';
-import { useToast } from '@/presentation/hooks/use-toast';
 
 export interface ApiError {
   message: string;
@@ -79,7 +79,7 @@ const useMutationApi = <TRequest = void, TResponse = unknown>(
   }
 ) => {
   const { axiosInstance, newAbortSignal } = useAxios();
-  const { toast } = useToast()
+  const { toast } = useToast();
   return useMutation<TResponse, ApiError, TRequest, ApiConfig<TResponse, TRequest>>({
     mutationFn: async (payload: TRequest) => {
       const response = await axiosInstance[method]<TResponse>(
@@ -101,8 +101,8 @@ const useMutationApi = <TRequest = void, TResponse = unknown>(
         toast,
         config.silentError,
         options.onError as
-        | ((error: ApiError, variables?: TRequest, context?: unknown) => void)
-        | undefined,
+          | ((error: ApiError, variables?: TRequest, context?: unknown) => void)
+          | undefined,
         variables,
         context
       );

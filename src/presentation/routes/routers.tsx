@@ -32,7 +32,6 @@ export const routes = [
     layout: null,
   },
 
-
   // Private routes (with MainLayout)
   {
     path: ROUTE_PATH.DASHBOARD,

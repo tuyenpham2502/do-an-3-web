@@ -1,4 +1,4 @@
-import { Roles } from "@/shared/enums/roles";
+import { Roles } from '@/shared/enums/roles';
 
 export interface LoginRequest {
   email: string;
