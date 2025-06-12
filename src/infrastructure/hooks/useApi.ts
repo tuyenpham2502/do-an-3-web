@@ -1,6 +1,5 @@
 import { buildUrl } from '@/shared/url';
 import { MutationOptions, UseQueryOptions, useMutation, useQuery } from '@tanstack/react-query';
-import { notification } from 'antd';
 import useAxios from './useAxios';
 
 export interface ApiError {
@@ -30,10 +29,7 @@ const handleApiError = <TRequest>(
   context?: unknown
 ) => {
   if (!silentError) {
-    notification.error({
-      message: 'Error',
-      description: error.response?.data?.message || error.message || 'An error occurred',
-    });
+    console.error('API Error:', error);
   }
   if (onError) onError(error, variables, context);
 };
@@ -97,8 +93,8 @@ const useMutationApi = <TRequest = void, TResponse = unknown>(
       handleApiError(
         error,
         options.onError as
-          | ((error: ApiError, variables?: TRequest, context?: unknown) => void)
-          | undefined,
+        | ((error: ApiError, variables?: TRequest, context?: unknown) => void)
+        | undefined,
         config.silentError,
         variables,
         context

@@ -1,6 +1,4 @@
 import { Language, languageAtom } from '@/application/stores/atoms/global/language';
-import { CheckOutlined, GlobalOutlined } from '@ant-design/icons';
-import { Button, Dropdown } from 'antd';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 
@@ -41,15 +39,6 @@ export function LanguageSwitcher() {
   }));
 
   return (
-    <Dropdown menu={{ items }} placement='bottomRight'>
-      <Button
-        type='text'
-        className='flex items-center gap-2 h-auto'
-        aria-label={currentLang?.ariaLabel}
-      >
-        <GlobalOutlined className='text-base' />
-        <span className='hidden md:inline-block'>{currentLang?.label}</span>
-      </Button>
-    </Dropdown>
+    
   );
 }

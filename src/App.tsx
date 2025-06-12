@@ -4,12 +4,9 @@ import { PrivateRoute } from '@/presentation/routes/privateRouter';
 import { PublicRoute } from '@/presentation/routes/publicRouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ConfigProvider, theme } from 'antd';
-import { useAtom } from 'jotai';
 import { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import themeAtom from './application/stores/atoms/global/theme';
 import { routes } from './presentation/routes/routers';
 import { AppRoutes } from './shared/appRoutes';
 
@@ -68,19 +65,12 @@ const RouteRoot = () => {
 };
 
 function App() {
-  const [currentTheme] = useAtom(themeAtom);
 
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <RepositoryProvider>
-          <ConfigProvider
-            theme={{
-              algorithm: currentTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
-            }}
-          >
-            <RouteRoot />
-          </ConfigProvider>
+          <RouteRoot />
           <ReactQueryDevtools initialIsOpen={false} />
         </RepositoryProvider>
       </HelmetProvider>

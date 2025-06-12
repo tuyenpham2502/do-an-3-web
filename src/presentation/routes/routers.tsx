@@ -8,6 +8,7 @@ const PermissionDeniedPage = lazy(() => import('@/presentation/pages/403'));
 const NotFoundPage = lazy(() => import('@/presentation/pages/404'));
 const DashBoardPage = lazy(() => import('@/presentation/pages/dashboard'));
 const ProfilePage = lazy(() => import('@/presentation/pages/profile'));
+const LoginPage = lazy(() => import('@/presentation/pages/auth/login'));
 
 /// Redirect component for root path
 const NavigateRoot = () => <Navigate to='/dashboard' replace />;
@@ -23,6 +24,14 @@ export const routes = [
   },
 
   // Public routes (no layout)
+
+  {
+    path: ROUTE_PATH.LOGIN,
+    title: 'Login',
+    component: LoginPage,
+    isProtected: false,
+    layout: null,
+  },
 
   // Private routes (with MainLayout)
   {
