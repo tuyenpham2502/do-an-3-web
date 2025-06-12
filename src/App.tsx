@@ -9,6 +9,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { routes } from './presentation/routes/routers';
 import { AppRoutes } from './shared/appRoutes';
+import { Toaster } from './presentation/components/ui/toaster';
 
 const queryClient = new QueryClient();
 
@@ -71,6 +72,7 @@ function App() {
       <HelmetProvider>
         <RepositoryProvider>
           <RouteRoot />
+          <Toaster />
           <ReactQueryDevtools initialIsOpen={false} />
         </RepositoryProvider>
       </HelmetProvider>

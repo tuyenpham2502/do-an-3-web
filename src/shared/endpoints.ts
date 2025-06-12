@@ -1,8 +1,8 @@
-const API_PREFIX = '/api/v1/';
+const API_PREFIX = '/v1/';
 
 export const Endpoints = {
   Auth: {
-    LOGIN: `${API_PREFIX}sign-in`,
+    LOGIN: `${API_PREFIX}auth/login`,
     REGISTER: `${API_PREFIX}auth/register`,
     FORGOT_PASSWORD: `${API_PREFIX}auth/forgot-password`,
     RESET_PASSWORD: `${API_PREFIX}auth/reset-password`,

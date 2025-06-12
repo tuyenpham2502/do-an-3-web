@@ -2,9 +2,9 @@ import { ROUTE_PATH } from './endpoints';
 
 export const Constants = {
   API_TOKEN_STORAGE: 'API_APP_AT',
+  API_REFRESH_TOKEN_STORAGE: 'API_APP_RT',
   APP_NAME: 'Vite React App',
   API_TOKEN_KEY: 'API_APP_AT',
-  API_REFRESH_TOKEN_KEY: 'API_APP_RT',
   API_ROLE: 'API_APP_ROLE',
 
   ROLES: {

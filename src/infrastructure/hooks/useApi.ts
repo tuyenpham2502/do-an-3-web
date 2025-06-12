@@ -1,6 +1,7 @@
 import { buildUrl } from '@/shared/url';
 import { MutationOptions, UseQueryOptions, useMutation, useQuery } from '@tanstack/react-query';
 import useAxios from './useAxios';
+import { useToast } from '@/presentation/hooks/use-toast';
 
 export interface ApiError {
   message: string;
@@ -23,13 +24,18 @@ export interface ApiConfig<TResponse, TRequest> {
 
 const handleApiError = <TRequest>(
   error: ApiError,
-  onError?: (error: ApiError, variables?: TRequest, context?: unknown) => void,
+  toast: ReturnType<typeof useToast>['toast'],
   silentError?: boolean,
+  onError?: (error: ApiError, variables?: TRequest, context?: unknown) => void,
   variables?: TRequest | undefined,
   context?: unknown
 ) => {
   if (!silentError) {
-    console.error('API Error:', error);
+    toast({
+      title: 'Error',
+      description: error.message || 'An unexpected error occurred.',
+      variant: 'destructive',
+    });
   }
   if (onError) onError(error, variables, context);
 };
@@ -73,7 +79,7 @@ const useMutationApi = <TRequest = void, TResponse = unknown>(
   }
 ) => {
   const { axiosInstance, newAbortSignal } = useAxios();
-
+  const { toast } = useToast()
   return useMutation<TResponse, ApiError, TRequest, ApiConfig<TResponse, TRequest>>({
     mutationFn: async (payload: TRequest) => {
       const response = await axiosInstance[method]<TResponse>(
@@ -92,10 +98,11 @@ const useMutationApi = <TRequest = void, TResponse = unknown>(
       const config = context || {};
       handleApiError(
         error,
+        toast,
+        config.silentError,
         options.onError as
         | ((error: ApiError, variables?: TRequest, context?: unknown) => void)
         | undefined,
-        config.silentError,
         variables,
         context
       );

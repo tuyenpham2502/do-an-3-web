@@ -24,14 +24,14 @@ export const routes = [
   },
 
   // Public routes (no layout)
-
   {
     path: ROUTE_PATH.LOGIN,
-    title: 'Login',
+    title: 'Dashboard',
     component: LoginPage,
     isProtected: false,
     layout: null,
   },
+
 
   // Private routes (with MainLayout)
   {

@@ -1,11 +1,19 @@
+import { Roles } from "@/shared/enums/roles";
+
 export interface LoginRequest {
-  email_id: string;
+  email: string;
   password: string;
 }
 
+export interface User {
+  id: string | null;
+  email: string | null;
+  name: string | null;
+  role: Roles | null;
+}
+
 export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  role: string;
-  permissions: string[];
+  access_token: string;
+  refresh_token: string;
+  user: User;
 }
