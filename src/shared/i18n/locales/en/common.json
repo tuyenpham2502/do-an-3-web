@@ -1,0 +1,86 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "logout": "Logout",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "settings": "Settings",
+    "language": "Language",
+    "userManagement": "User Management",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "success": "Success",
+    "info": "Information",
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "loginDescription": "Enter your email below to login to your account",
+    "loginWithGoogle": "Login with Google",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Sign up",
+    "emailPlaceholder": "m@example.com",
+    "forgotPasswordPage": {
+      "title": "Forgot Password",
+      "description": "Enter your email and we'll send you instructions to reset your password",
+      "sendInstructions": "Send Reset Instructions",
+      "rememberPassword": "Remember your password?",
+      "backToLogin": "Back to Login",
+      "successMessage": "If an account exists with this email, you will receive password reset instructions."
+    }
+  },
+  "profile": {
+    "personalInfo": "Personal Information",
+    "updateProfile": "Update Profile",
+    "editProfile": "Edit Profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "dateOfBirth": "Date of Birth",
+    "email": "Email",
+    "username": "Username",
+    "role": "Role",
+    "updateSuccess": "Profile updated successfully",
+    "noChanges": "No changes detected to update"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "invalidEmail": "Invalid email address",
+    "minLength": "{{field}} must be at least {{min}} characters",
+    "maxLength": "{{field}} must not exceed {{max}} characters",
+    "invalidPhone": "Please enter a valid phone number",
+    "invalidName": "{{field}} must be at least 2 characters",
+    "invalidAddress": "Address must be at least 5 characters"
+  },
+  "user": {
+    "upgradeToPro": "Upgrade to Pro",
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "logout": "Log out",
+    "confirmLogout": "Confirm Logout",
+    "logoutConfirmMessage": "Are you sure you want to log out of your account?",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "notFound": {
+      "title": "404",
+      "heading": "Page Not Found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "goBack": "Go Back",
+      "returnHome": "Return Home"
+    }
+  }
+}

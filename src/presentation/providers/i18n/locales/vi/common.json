@@ -1,0 +1,84 @@
+{
+  "common": {
+    "welcome": "Xin chào",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "profile": "Hồ sơ",
+    "dashboard": "Bảng điều khiển",
+    "users": "Người dùng",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "userManagement": "Quản lý người dùng",
+    "save": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "cancel": "Hủy",
+    "edit": "Chỉnh sửa",
+    "success": "Thành công",
+    "toggleTheme": "Chuyển đổi giao diện",
+    "light": "Sáng",
+    "dark": "Tối"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "signIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "loginDescription": "Nhập email của bạn để đăng nhập vào tài khoản",
+    "loginWithGoogle": "Đăng nhập với Google",
+    "noAccount": "Chưa có tài khoản?",
+    "createAccount": "Đăng ký",
+    "emailPlaceholder": "m@example.com",
+    "forgotPasswordPage": {
+      "title": "Quên mật khẩu",
+      "description": "Nhập email của bạn và chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu",
+      "sendInstructions": "Gửi hướng dẫn đặt lại",
+      "rememberPassword": "Đã nhớ mật khẩu?",
+      "backToLogin": "Quay lại đăng nhập",
+      "successMessage": "Nếu tài khoản tồn tại với email này, bạn sẽ nhận được hướng dẫn đặt lại mật khẩu."
+    }
+  },
+  "profile": {
+    "personalInfo": "Thông tin cá nhân",
+    "updateProfile": "Cập nhật hồ sơ",
+    "editProfile": "Chỉnh sửa hồ sơ",
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ",
+    "dateOfBirth": "Ngày sinh",
+    "email": "Email",
+    "username": "Tên đăng nhập",
+    "role": "Vai trò",
+    "updateSuccess": "Cập nhật hồ sơ thành công"
+  },
+  "validation": {
+    "required": "Vui lòng nhập {{field}}",
+    "invalidEmail": "Địa chỉ email không hợp lệ",
+    "minLength": "{{field}} phải có ít nhất {{min}} ký tự",
+    "maxLength": "{{field}} không được vượt quá {{max}} ký tự",
+    "invalidPhone": "Vui lòng nhập số điện thoại hợp lệ",
+    "invalidName": "{{field}} phải có ít nhất 2 ký tự",
+    "invalidAddress": "Địa chỉ phải có ít nhất 5 ký tự"
+  },
+  "user": {
+    "upgradeToPro": "Nâng cấp lên Pro",
+    "account": "Tài khoản",
+    "billing": "Thanh toán",
+    "notifications": "Thông báo",
+    "logout": "Đăng xuất",
+    "confirmLogout": "Xác nhận đăng xuất",
+    "logoutConfirmMessage": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+    "cancel": "Hủy"
+  },
+  "error": {
+    "notFound": {
+      "title": "404",
+      "heading": "Không tìm thấy trang",
+      "description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+      "goBack": "Quay lại",
+      "returnHome": "Về trang chủ"
+    }
+  }
+}

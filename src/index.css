@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/font/Acumin-RPro.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/font/Acumin-ItPro.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/font/Acumin-BdPro.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/font/Acumin-BdItPro.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
