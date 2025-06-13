@@ -107,9 +107,9 @@ class HttpClient {
     }
 
     this.isRefreshing = true;
-    const refreshToken = this.localStorageService.readStorage(Constants.API_REFRESH_TOKEN_STORAGE) as
-      | string
-      | null;
+    const refreshToken = this.localStorageService.readStorage(
+      Constants.API_REFRESH_TOKEN_STORAGE
+    ) as string | null;
     if (!refreshToken) return this.handleLogout();
 
     try {
