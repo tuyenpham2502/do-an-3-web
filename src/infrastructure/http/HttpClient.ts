@@ -107,7 +107,7 @@ class HttpClient {
     }
 
     this.isRefreshing = true;
-    const refreshToken = this.localStorageService.readStorage(Constants.API_REFRESH_TOKEN_KEY) as
+    const refreshToken = this.localStorageService.readStorage(Constants.API_REFRESH_TOKEN_STORAGE) as
       | string
       | null;
     if (!refreshToken) return this.handleLogout();
@@ -133,7 +133,7 @@ class HttpClient {
 
   private handleLogout(): void {
     this.localStorageService.removeStorage(Constants.API_TOKEN_KEY);
-    this.localStorageService.removeStorage(Constants.API_REFRESH_TOKEN_KEY);
+    this.localStorageService.removeStorage(Constants.API_REFRESH_TOKEN_STORAGE);
     window.location.assign(AppRoutes.PUBLIC.AUTH.LOGIN);
   }
 
