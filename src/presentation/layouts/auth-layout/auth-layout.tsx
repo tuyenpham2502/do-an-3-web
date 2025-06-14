@@ -10,11 +10,11 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
             {children}
           </div>
         </div>
-        <div className='relative hidden bg-muted lg:block col-span-3'>
+        <div className='relative hidden lg:block col-span-3 p-4 '>
           <img
             src='/images/auth-bg.jpg'
             alt='Login'
-            className='object-cover object-center w-full h-full'
+            className='object-cover object-center w-full h-full rounded-lg'
           />
         </div>
       </div>

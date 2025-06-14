@@ -2,6 +2,7 @@ import { ROUTE_PATH } from '@/shared/endpoints';
 import { lazy } from 'react';
 import { Navigate } from 'react-router';
 import MainLayout from '../layouts/main-layout';
+import AuthLayout from '../layouts/auth-layout/auth-layout';
 
 // Lazy load pages
 const PermissionDeniedPage = lazy(() => import('@/presentation/pages/403'));
@@ -29,7 +30,7 @@ export const routes = [
     title: 'Dashboard',
     component: LoginPage,
     isProtected: false,
-    layout: null,
+    layout: AuthLayout,
   },
 
   // Private routes (with MainLayout)

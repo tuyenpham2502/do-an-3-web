@@ -35,7 +35,7 @@ const LoginPage = () => {
   return (
     <div className='min-h-screen flex items-center justify-center'>
       <div className='max-w-sm w-full flex flex-col items-center border rounded-lg p-6 shadow-sm'>
-        <p className='mt-4 text-xl font-bold tracking-tight'>Log in to Shadcn UI Blocks</p>
+        <p className='mt-4 text-xl font-bold tracking-tight mb-4'>Log in to plant care system</p>
         <Form {...form}>
           <form className='w-full space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField

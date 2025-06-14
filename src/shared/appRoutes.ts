@@ -17,6 +17,5 @@ export const AppRoutes = {
     USERS: `${Prefix}/users`,
     ACCOUNTS: `${Prefix}/accounts`,
     PROFILE: `${Prefix}/profile`,
-    LOGOUT: `${Prefix}/logout`,
   },
 };

@@ -1,4 +1,4 @@
-import { User } from '@/domain/models/Auth';
+import { User } from '@/domain/models/auth/login';
 import { atomWithReset } from 'jotai/utils';
 
 export const profileAtom = atomWithReset<User>({

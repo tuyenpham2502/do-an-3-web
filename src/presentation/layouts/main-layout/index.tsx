@@ -1,11 +1,44 @@
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/presentation/components/ui/breadcrumb';
+import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/presentation/components/ui/sidebar';
+import { Separator } from '@radix-ui/react-separator';
 import React from 'react';
+import { AppSidebar } from './sidebar/app-sidebar';
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 const MainLayout = (props: MainLayoutProps) => {
   const { children } = props;
-  return <div>{children}</div>;
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbLink href="#">
+                  Building Your Application
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
+        {
+          children
+        }
+      </SidebarInset>
+    </SidebarProvider>
+  )
 };
 
 export default MainLayout;

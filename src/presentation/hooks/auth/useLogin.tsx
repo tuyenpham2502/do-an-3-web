@@ -1,5 +1,5 @@
 import { useRepository } from '@/di/RepositoriesProvider';
-import { LoginRequest } from '@/domain/models/Auth';
+import { LoginRequest } from '@/domain/models/auth/login';
 import LocalStorageServiceImpl from '@/infrastructure/services/LocalStorageServiceImpl';
 import { Constants } from '@/shared/constants';
 import { useNavigate } from 'react-router';
