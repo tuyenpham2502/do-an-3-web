@@ -3,10 +3,16 @@ import LocalStorageService from '@/infrastructure/services/LocalStorageServiceIm
 import LoggerService from '@/infrastructure/services/LoggerServiceImpl';
 import { AppRoutes } from '@/shared/appRoutes';
 import { Constants } from '@/shared/constants';
+import { Endpoints } from '@/shared/endpoints';
 import axios, { AxiosInstance, AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 interface RefreshTokenResponse {
   accessToken: string;
+}
+
+interface ErrorResponse {
+  message: string;
+  status?: number;
 }
 
 interface FormattedError {
@@ -51,7 +57,7 @@ class HttpClient {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => this.handleResponse(response),
-      (error: AxiosError) => this.handleResponseError(error)
+      (error: AxiosError<ErrorResponse>) => this.handleResponseError(error)
     );
   }
 
@@ -70,14 +76,18 @@ class HttpClient {
     return response;
   }
 
-  private async handleResponseError(error: AxiosError, retryCount: number = 0): Promise<any> {
+  private async handleResponseError(
+    error: AxiosError<ErrorResponse>,
+    retryCount: number = 0
+  ): Promise<any> {
     if (!error.response) {
       this.loggerService.error('Network Error:', error.message);
       throw new NetworkException('Network error occurred');
     }
 
     const { status, config } = error.response;
-    if (status === 401) return this.handle401Error(error);
+    if (status === 401 && !config.url?.includes(Endpoints.Auth.LOGIN))
+      return this.handle401Error(error);
     if ([500, 502, 503, 504, 429].includes(status) && retryCount < this.MAX_RETRIES) {
       return this.retryRequest(config!, retryCount);
     }
@@ -90,10 +100,10 @@ class HttpClient {
     await new Promise((resolve) => setTimeout(resolve, delay));
     return this.instance
       .request(config)
-      .catch((err: AxiosError) => this.handleResponseError(err, retryCount + 1));
+      .catch((err: AxiosError<ErrorResponse>) => this.handleResponseError(err, retryCount + 1));
   }
 
-  private async handle401Error(error: AxiosError): Promise<any> {
+  private async handle401Error(error: AxiosError<ErrorResponse>): Promise<any> {
     const originalRequest = error.config;
     if (!originalRequest) return Promise.reject(error);
 
@@ -137,10 +147,10 @@ class HttpClient {
     window.location.assign(AppRoutes.PUBLIC.AUTH.LOGIN);
   }
 
-  private formatError(error: AxiosError): FormattedError {
+  private formatError(error: AxiosError<ErrorResponse>): FormattedError {
     return {
-      message: error.message,
-      status: error.response?.status,
+      message: error.response?.data?.message || 'An unexpected error occurred',
+      status: error.response?.data?.status,
       timestamp: new Date().toISOString(),
       path: error.config?.url,
     };
