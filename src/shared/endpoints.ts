@@ -22,37 +22,3 @@ export const Endpoints = {
     DELETE_USER: `${API_PREFIX}/users/:id`,
   },
 };
-
-export const ROUTE_PATH = {
-  // Auth
-  LOGIN: '/auth/login',
-  FORGOT_PASSWORD: '/auth/forgot-password',
-  RESET_PASSWORD: '/auth/reset-password',
-
-  HOME: '/home',
-  DASHBOARD: '/dashboard',
-  USERS: '/users',
-  PROFILE: '/profile',
-
-  // Emissions Tracking
-  EMISSIONS_TRACKING: '/emissions-tracking',
-
-  //Blog Management
-  BLOG_MANAGEMENT: '/blog-management/blogs',
-  CATEGORY_MANAGEMENT: '/blog-management/category',
-
-  //Emissions Factor
-  EMISSIONS_FACTOR: '/emissions-factor',
-
-  //User Management
-  USER_MANAGEMENT: '/user-management',
-
-  //Company
-  COMPANY_MANAGEMENT: '/company-management',
-
-  //Reporting
-  REPORTING: '/reporting',
-
-  PERMISSION_DENIED: '/permission-denied',
-  NOT_FOUND: '*',
-};

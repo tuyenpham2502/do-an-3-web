@@ -1,8 +1,8 @@
-import { ROUTE_PATH } from '@/shared/endpoints';
+import { AppRoutes } from '@/shared/appRoutes';
 import { lazy } from 'react';
 import { Navigate } from 'react-router';
-import MainLayout from '../layouts/main-layout';
 import AuthLayout from '../layouts/auth-layout/auth-layout';
+import MainLayout from '../layouts/main-layout';
 
 // Lazy load pages
 const PermissionDeniedPage = lazy(() => import('@/presentation/pages/403'));
@@ -10,6 +10,7 @@ const NotFoundPage = lazy(() => import('@/presentation/pages/404'));
 const DashBoardPage = lazy(() => import('@/presentation/pages/dashboard'));
 const ProfilePage = lazy(() => import('@/presentation/pages/profile'));
 const LoginPage = lazy(() => import('@/presentation/pages/auth/login'));
+const ForgotPasswordPage = lazy(() => import('@/presentation/pages/auth/forgot-password'));
 
 /// Redirect component for root path
 const NavigateRoot = () => <Navigate to='/dashboard' replace />;
@@ -17,7 +18,7 @@ const NavigateRoot = () => <Navigate to='/dashboard' replace />;
 export const routes = [
   // Redirect from root
   {
-    path: '/',
+    path: AppRoutes.ROOT,
     title: 'Dashboard',
     component: NavigateRoot,
     isProtected: false, // Không cần Protected vì chỉ redirect
@@ -26,23 +27,31 @@ export const routes = [
 
   // Public routes (no layout)
   {
-    path: ROUTE_PATH.LOGIN,
-    title: 'Dashboard',
+    path: AppRoutes.PUBLIC.AUTH.LOGIN,
+    title: 'Login',
     component: LoginPage,
+    isProtected: false,
+    layout: AuthLayout,
+  },
+
+  {
+    path: AppRoutes.PUBLIC.AUTH.FORGOT_PASSWORD,
+    title: 'Forgot Password',
+    component: ForgotPasswordPage,
     isProtected: false,
     layout: AuthLayout,
   },
 
   // Private routes (with MainLayout)
   {
-    path: ROUTE_PATH.DASHBOARD,
+    path: AppRoutes.PRIVATE.DASHBOARD,
     title: 'Dashboard',
     component: DashBoardPage,
     isProtected: true,
     layout: MainLayout,
   },
   {
-    path: ROUTE_PATH.PROFILE,
+    path: AppRoutes.PRIVATE.PROFILE,
     title: 'Profile',
     component: ProfilePage,
     isProtected: true,
@@ -51,7 +60,7 @@ export const routes = [
 
   // Special routes
   {
-    path: ROUTE_PATH.PERMISSION_DENIED,
+    path: AppRoutes.PERMISSION_DENIED,
     title: 'Permission Denied',
     component: PermissionDeniedPage,
     isProtected: false,

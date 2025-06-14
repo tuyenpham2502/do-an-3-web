@@ -9,6 +9,7 @@ import {
 } from '@/presentation/components/ui/form';
 import { Input } from '@/presentation/components/ui/input';
 import { useLogin } from '@/presentation/hooks/auth/useLogin';
+import { AppRoutes } from '@/shared/appRoutes';
 import { formSchema } from '@/shared/schemas/auth/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -36,6 +37,9 @@ const LoginPage = () => {
     <div className='min-h-screen flex items-center justify-center'>
       <div className='max-w-sm w-full flex flex-col items-center border rounded-lg p-6 shadow-sm'>
         <p className='mt-4 text-xl font-bold tracking-tight mb-4'>Log in to plant care system</p>
+        <p className='text-sm text-muted-foreground mb-6'>
+          Enter your email and password to continue
+        </p>
         <Form {...form}>
           <form className='w-full space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -71,7 +75,7 @@ const LoginPage = () => {
         </Form>
         <div className='mt-5 space-y-5'>
           <Link
-            to='/auth/register'
+            to={AppRoutes.PUBLIC.AUTH.FORGOT_PASSWORD}
             className='text-sm block underline text-muted-foreground text-center'
           >
             Forgot your password?

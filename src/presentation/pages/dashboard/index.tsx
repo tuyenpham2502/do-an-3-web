@@ -1,5 +1,5 @@
-import React from 'react';
 import { Button } from '@/presentation/components/ui/button';
+import React from 'react';
 
 const DashboardPage: React.FC = () => {
   // Mock data - would come from API in real implementation
@@ -23,24 +23,28 @@ const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Plant Care Dashboard</h1>
+    <div className='p-6 space-y-6'>
+      <div className='flex justify-between items-center'>
+        <h1 className='text-2xl font-semibold'>Plant Care Dashboard</h1>
         <Button>Add New Plant</Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
         {stats.map((stat) => (
-          <div key={stat.title} className="bg-white rounded-lg p-4 shadow">
-            <p className="text-sm text-gray-500">{stat.title}</p>
-            <div className="flex items-end justify-between mt-2">
-              <p className="text-2xl font-semibold">{stat.value}</p>
-              <span className={`text-sm ${
-                stat.status === 'increase' ? 'text-green-500' :
-                stat.status === 'decrease' ? 'text-red-500' :
-                'text-gray-500'
-              }`}>
+          <div key={stat.title} className='bg-white rounded-lg p-4 shadow'>
+            <p className='text-sm text-gray-500'>{stat.title}</p>
+            <div className='flex items-end justify-between mt-2'>
+              <p className='text-2xl font-semibold'>{stat.value}</p>
+              <span
+                className={`text-sm ${
+                  stat.status === 'increase'
+                    ? 'text-green-500'
+                    : stat.status === 'decrease'
+                      ? 'text-red-500'
+                      : 'text-gray-500'
+                }`}
+              >
                 {stat.change}
               </span>
             </div>
@@ -48,22 +52,25 @@ const DashboardPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         {/* Plant Status */}
-        <div className="bg-white rounded-lg p-6 shadow">
-          <h2 className="text-lg font-semibold mb-4">Plant Status</h2>
-          <div className="space-y-4">
+        <div className='bg-white rounded-lg p-6 shadow'>
+          <h2 className='text-lg font-semibold mb-4'>Plant Status</h2>
+          <div className='space-y-4'>
             {plantStatus.map((plant) => (
-              <div key={plant.name} className="flex items-center justify-between">
+              <div key={plant.name} className='flex items-center justify-between'>
                 <div>
-                  <p className="font-medium">{plant.name}</p>
-                  <p className="text-sm text-gray-500">Next water: {plant.nextWater}</p>
+                  <p className='font-medium'>{plant.name}</p>
+                  <p className='text-sm text-gray-500'>Next water: {plant.nextWater}</p>
                 </div>
-                <div className="text-right">
-                  <span className={`px-2 py-1 rounded-full text-sm ${
-                    plant.status === 'Healthy' ? 'bg-green-100 text-green-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
+                <div className='text-right'>
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm ${
+                      plant.status === 'Healthy'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-yellow-100 text-yellow-800'
+                    }`}
+                  >
                     {plant.status}
                   </span>
                 </div>
@@ -73,18 +80,20 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Recent Activities */}
-        <div className="bg-white rounded-lg p-6 shadow">
-          <h2 className="text-lg font-semibold mb-4">Recent Activities</h2>
-          <div className="space-y-4">
+        <div className='bg-white rounded-lg p-6 shadow'>
+          <h2 className='text-lg font-semibold mb-4'>Recent Activities</h2>
+          <div className='space-y-4'>
             {recentActivities.map((activity) => (
-              <div key={activity.id} className="flex items-center justify-between">
+              <div key={activity.id} className='flex items-center justify-between'>
                 <div>
-                  <p className="font-medium">
+                  <p className='font-medium'>
                     {activity.action} - {activity.plant}
                   </p>
-                  <p className="text-sm text-gray-500">{activity.time}</p>
+                  <p className='text-sm text-gray-500'>{activity.time}</p>
                 </div>
-                <Button variant="outline" size="sm">Details</Button>
+                <Button variant='outline' size='sm'>
+                  Details
+                </Button>
               </div>
             ))}
           </div>
