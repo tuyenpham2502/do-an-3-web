@@ -1,5 +1,5 @@
 import { ResetPasswordRequest } from '@/domain/models/auth/resetPassword';
-import { ApiError, usePostApi } from '@/infrastructure/hooks/useApi';
+import { usePostApi } from '@/infrastructure/hooks/useApi';
 import { useToast } from '@/presentation/hooks/use-toast';
 import { AppRoutes } from '@/shared/appRoutes';
 import { Endpoints } from '@/shared/endpoints';
@@ -12,13 +12,6 @@ export const useResetPassword = () => {
   const { mutateAsync: resetPassword, isPending } = usePostApi<ResetPasswordRequest, void>({
     endpoint: Endpoints.Auth.RESET_PASSWORD,
     options: {
-      onError: (error: ApiError) => {
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: error.message || 'Failed to reset password. Please try again.',
-        });
-      },
       onSuccess: () => {
         toast({
           title: 'Password reset successful',
