@@ -11,6 +11,7 @@ const DashBoardPage = lazy(() => import('@/presentation/pages/dashboard'));
 const ProfilePage = lazy(() => import('@/presentation/pages/profile'));
 const LoginPage = lazy(() => import('@/presentation/pages/auth/login'));
 const ForgotPasswordPage = lazy(() => import('@/presentation/pages/auth/forgot-password'));
+const ResetPasswordPage = lazy(() => import('@/presentation/pages/auth/reset-password'));
 
 /// Redirect component for root path
 const NavigateRoot = () => <Navigate to='/dashboard' replace />;
@@ -38,6 +39,14 @@ export const routes = [
     path: AppRoutes.PUBLIC.AUTH.FORGOT_PASSWORD,
     title: 'Forgot Password',
     component: ForgotPasswordPage,
+    isProtected: false,
+    layout: AuthLayout,
+  },
+
+  {
+    path: AppRoutes.PUBLIC.AUTH.RESET_PASSWORD,
+    title: 'Forgot Password',
+    component: ResetPasswordPage,
     isProtected: false,
     layout: AuthLayout,
   },
