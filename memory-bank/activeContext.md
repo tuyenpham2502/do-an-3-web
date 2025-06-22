@@ -1,48 +1,29 @@
 # Active Context
 
 ## Current Focus
-- Containerization and deployment infrastructure
-- Zero-downtime deployment implementation
-- Production-ready Docker setup
+- Developing the user profile page
+- Implementing profile data display and editing
+- Integrating with existing profile data fetching hooks
 
 ## Recent Changes
-1. Added Docker configuration:
-   - Dockerfile for multi-stage builds
-   - docker-compose.yml for development
-   - nginx.conf for production server
-   - .dockerignore for build optimization
-
-2. Implemented zero-downtime deployment:
-   - Blue-green deployment pattern
-   - Health check system
-   - Nginx reverse proxy setup
-   - Automatic rollback on failure
-
-3. Created build.sh deployment script:
-   - Container orchestration
-   - Health verification
-   - Traffic routing
-   - Cleanup procedures
+1. Initialized profile page development:
+   - Read existing `src/presentation/pages/profile/index.tsx` placeholder.
+   - Reviewed `src/presentation/layouts/main-layout/index.tsx` for layout structure.
+   - Confirmed profile page routing in `src/presentation/routes/routers.tsx`.
 
 ## Active Files
-- `/Dockerfile` - Production build configuration
-- `/docker-compose.yml` - Development environment
-- `/nginx.conf` - Production web server setup
-- `/build.sh` - Deployment automation
-- `/.dockerignore` - Build optimization
+- `src/presentation/pages/profile/index.tsx` - Profile page component
+- `src/presentation/layouts/main-layout/index.tsx` - Main application layout
+- `src/presentation/routes/routers.tsx` - Application routing configuration
 
 ## Next Steps
-1. Test deployment process:
-   - Verify blue-green switching
-   - Validate health checks
-   - Confirm zero-downtime updates
-   
-2. Documentation updates:
-   - Deployment procedures
-   - Container management
-   - Troubleshooting guides
-
-3. Monitoring setup:
-   - Container health metrics
-   - Deployment success rates
-   - System performance tracking
+1. Implement profile page UI:
+   - Display user information using `useGetProfile` hook.
+   - Create an editable form for profile details.
+   - Utilize existing UI components (`Avatar`, `Label`, `Input`, `Button`).
+2. Add profile update functionality:
+   - Implement form submission logic.
+   - Integrate with a profile update API (if available or needed).
+3. Refine UI/UX:
+   - Ensure responsive design.
+   - Add validation and error handling for the form.

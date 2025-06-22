@@ -32,6 +32,7 @@ import {
   useSidebar,
 } from '@/presentation/components/ui/sidebar';
 import { useLogout } from '@/presentation/hooks/auth/useLogout';
+import { AppRoutes } from '@/shared/appRoutes';
 import { logOutHandle } from '@/shared/utils';
 import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router';
@@ -97,9 +98,9 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(AppRoutes.PRIVATE.PROFILE)}>
                 <BadgeCheck />
-                Account
+                Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />

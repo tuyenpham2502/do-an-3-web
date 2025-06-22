@@ -1,7 +1,13 @@
-export class RequestResponse {
+export class RequestResponse<T> {
+  success: boolean;
   status: number;
+  data?: T;
+  message?: string;
 
-  constructor(status: number) {
+  constructor(success: boolean, status: number, data?: T, message?: string) {
+    this.success = success;
     this.status = status;
+    this.data = data;
+    this.message = message;
   }
 }
