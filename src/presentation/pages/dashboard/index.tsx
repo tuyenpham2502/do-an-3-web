@@ -1,106 +1,73 @@
-import { Button } from '@/presentation/components/ui/button';
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import AnimatedNumber from '../../components/commons/AnimatedNumber';
 
-const DashboardPage: React.FC = () => {
-  // Mock data - would come from API in real implementation
-  const stats = [
-    { title: 'Total Plants', value: '24', change: '+2', status: 'increase' },
-    { title: 'Need Attention', value: '3', change: '-1', status: 'decrease' },
-    { title: 'Watered Today', value: '8', change: '80%', status: 'normal' },
-    { title: 'Health Score', value: '95%', change: '+5%', status: 'increase' },
-  ];
+import { sensorAtom } from '@/application/stores/atoms/global/sensor';
+import { Sensor } from '@/domain/models/sensor/Sensor';
+import { useAtomValue } from 'jotai';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 
-  const recentActivities = [
-    { id: 1, action: 'Watered', plant: 'Monstera', time: '2 hours ago' },
-    { id: 2, action: 'Fertilized', plant: 'Snake Plant', time: '5 hours ago' },
-    { id: 3, action: 'Pruned', plant: 'Pothos', time: '1 day ago' },
-  ];
+const Dashboard = () => {
+  const sensorData = useAtomValue(sensorAtom);
+  const [prevSensorData, setPrevSensorData] = useState<Sensor>({
+    temperature: 0,
+    humidity: 0,
+    soilMoisture: 0,
+  });
 
-  const plantStatus = [
-    { name: 'Monstera', status: 'Healthy', nextWater: 'Tomorrow', light: 'Optimal' },
-    { name: 'Snake Plant', status: 'Needs Water', nextWater: 'Today', light: 'Low' },
-    { name: 'Pothos', status: 'Healthy', nextWater: '2 days', light: 'Medium' },
-  ];
+  // Store previous sensorData in a ref
+  const prevDataRef = useRef(sensorData);
+
+  useEffect(() => {
+    setPrevSensorData(prevDataRef.current);
+    prevDataRef.current = sensorData;
+  }, [sensorData]);
+
+  const TrendIcon = ({ value, prevValue }: { value: number; prevValue: number }) => {
+    if (value > prevValue) return <ArrowUp className='inline text-green-500 w-4 h-4' />;
+    if (value < prevValue) return <ArrowDown className='inline text-red-500 w-4 h-4' />;
+    return null;
+  };
+
+  if (!sensorData) {
+    return (
+      <div className='p-6 space-y-6'>
+        <h1 className='text-2xl font-semibold mb-4'>Dashboard</h1>
+        <div className='text-center text-gray-500'>Waiting for sensor data...</div>
+      </div>
+    );
+  }
 
   return (
     <div className='p-6 space-y-6'>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-2xl font-semibold'>Plant Care Dashboard</h1>
-        <Button>Add New Plant</Button>
-      </div>
-
-      {/* Stats Grid */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-        {stats.map((stat) => (
-          <div key={stat.title} className='bg-white rounded-lg p-4 shadow'>
-            <p className='text-sm text-gray-500'>{stat.title}</p>
-            <div className='flex items-end justify-between mt-2'>
-              <p className='text-2xl font-semibold'>{stat.value}</p>
-              <span
-                className={`text-sm ${
-                  stat.status === 'increase'
-                    ? 'text-green-500'
-                    : stat.status === 'decrease'
-                      ? 'text-red-500'
-                      : 'text-gray-500'
-                }`}
-              >
-                {stat.change}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        {/* Plant Status */}
-        <div className='bg-white rounded-lg p-6 shadow'>
-          <h2 className='text-lg font-semibold mb-4'>Plant Status</h2>
-          <div className='space-y-4'>
-            {plantStatus.map((plant) => (
-              <div key={plant.name} className='flex items-center justify-between'>
-                <div>
-                  <p className='font-medium'>{plant.name}</p>
-                  <p className='text-sm text-gray-500'>Next water: {plant.nextWater}</p>
-                </div>
-                <div className='text-right'>
-                  <span
-                    className={`px-2 py-1 rounded-full text-sm ${
-                      plant.status === 'Healthy'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-yellow-100 text-yellow-800'
-                    }`}
-                  >
-                    {plant.status}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+      <h1 className='text-2xl font-semibold mb-4'>Dashboard</h1>
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <div className='bg-blue-50 rounded-lg p-4 shadow flex flex-col items-center'>
+          <span className='text-blue-500 text-4xl mb-2'>🌡️</span>
+          <p className='text-lg font-medium'>Temperature</p>
+          <p className='text-2xl font-bold transition-all duration-500 flex items-center gap-1'>
+            <AnimatedNumber value={sensorData.temperature} unit='°C' />
+            <TrendIcon value={sensorData.temperature} prevValue={prevSensorData?.temperature} />
+          </p>
         </div>
-
-        {/* Recent Activities */}
-        <div className='bg-white rounded-lg p-6 shadow'>
-          <h2 className='text-lg font-semibold mb-4'>Recent Activities</h2>
-          <div className='space-y-4'>
-            {recentActivities.map((activity) => (
-              <div key={activity.id} className='flex items-center justify-between'>
-                <div>
-                  <p className='font-medium'>
-                    {activity.action} - {activity.plant}
-                  </p>
-                  <p className='text-sm text-gray-500'>{activity.time}</p>
-                </div>
-                <Button variant='outline' size='sm'>
-                  Details
-                </Button>
-              </div>
-            ))}
-          </div>
+        <div className='bg-green-50 rounded-lg p-4 shadow flex flex-col items-center'>
+          <span className='text-green-500 text-4xl mb-2'>💧</span>
+          <p className='text-lg font-medium'>Humidity</p>
+          <p className='text-2xl font-bold transition-all duration-500 flex items-center gap-1'>
+            <AnimatedNumber value={sensorData.humidity} unit='%' />
+            <TrendIcon value={sensorData.humidity} prevValue={prevSensorData?.humidity} />
+          </p>
+        </div>
+        <div className='bg-yellow-50 rounded-lg p-4 shadow flex flex-col items-center'>
+          <span className='text-yellow-500 text-4xl mb-2'>🌱</span>
+          <p className='text-lg font-medium'>Soil Moisture</p>
+          <p className='text-2xl font-bold transition-all duration-500 flex items-center gap-1'>
+            <AnimatedNumber value={sensorData.soilMoisture} unit='%' />
+            <TrendIcon value={sensorData.soilMoisture} prevValue={prevSensorData?.soilMoisture} />
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

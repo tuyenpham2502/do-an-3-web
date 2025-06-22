@@ -1,3 +1,6 @@
+import { sensorAtom } from '@/application/stores/atoms/global/sensor';
+import { Sensor } from '@/domain/models/sensor/Sensor';
+import { useWebSocket } from '@/infrastructure/hooks/useWebSocket';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,13 +15,27 @@ import {
   SidebarTrigger,
 } from '@/presentation/components/ui/sidebar';
 import { Separator } from '@radix-ui/react-separator';
-import React from 'react';
+import { useSetAtom } from 'jotai';
+import React, { useEffect } from 'react';
 import { AppSidebar } from './sidebar/app-sidebar';
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 const MainLayout = (props: MainLayoutProps) => {
+  const setSensor = useSetAtom(sensorAtom);
+
+  useEffect(() => {
+    const socket = useWebSocket();
+
+    socket.on('sensorData', (data: Sensor) => {
+      setSensor(data); // Update the sensor atom with the received data
+    });
+    return () => {
+      socket.close();
+    };
+  }, []);
+
   const { children } = props;
   return (
     <SidebarProvider>
