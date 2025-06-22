@@ -17,7 +17,7 @@ import { Link } from 'react-router';
 import { z } from 'zod';
 
 const LoginPage = () => {
-  const { login } = useLogin();
+  const { login, isPending } = useLogin();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: '',
@@ -68,7 +68,7 @@ const LoginPage = () => {
                 </FormItem>
               )}
             />
-            <Button type='submit' className='mt-4 w-full'>
+            <Button type='submit' className='mt-4 w-full' disabled={isPending}>
               Continue with Email
             </Button>
           </form>

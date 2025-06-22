@@ -1,94 +1,65 @@
 # System Patterns
 
-## High-Level Architecture
-The project follows Clean Architecture principles with clear separation of concerns:
+## Deployment Architecture
 
-```
-src/
-├── application/    # Application business rules, DTOs, interfaces
-├── domain/        # Enterprise business rules, core entities
-├── infrastructure/# Framework & driver adapters
-└── presentation/  # UI components and pages
-```
+### Container Strategy
+- Blue-Green Deployment Pattern
+  - Two identical environments (blue/green)
+  - Zero-downtime deployments
+  - Automated health checks
+  - Rollback capability on failure
 
-## Core Technical Patterns
-
-### 1. Repository Pattern
-- Abstract data access through repository interfaces
-- Implementation separation for testability
-- Examples:
-  - `AuthRepository` / `AuthRepositoryImpl`
-  - `UserRepository` / `UserRepositoryImpl`
-
-### 2. Service Pattern
-- Encapsulated business logic in services
-- Implementation independence through interfaces
-- Key services:
-  - `DateTimeService`
-  - `LocalStorageService`
-  - `LoggerService`
-
-### 3. State Management
-- Atom-based state management
-- Global state atoms for:
-  - Language preferences
-  - User profile
-  - Theme settings
-  - Navigation state
-
-### 4. Component Architecture
-```
-presentation/
-├── components/    # Reusable UI components
-├── layouts/       # Page layouts (Auth, Main)
-├── pages/         # Route-based page components
-├── providers/     # Context providers
-└── routes/        # Routing configuration
+### Traffic Flow
+```mermaid
+graph LR
+    Client --> Nginx[Nginx Reverse Proxy :8080]
+    Nginx --> Blue[Blue Container :8081]
+    Nginx --> Green[Green Container :8082]
 ```
 
-## Error Handling Patterns
-1. Custom exception types:
-   - `NetworkException`
-   - `NotImplementedException`
+### Health Check Pattern
+1. Deploy new container
+2. Verify health status
+3. Switch traffic if healthy
+4. Remove old container
 
-2. Response wrapper pattern:
-   - `RequestResponse`
-   - `SuccessResponse`
-   - `FailureResponse`
-   - `InvalidModelStateResponse`
+### Error Handling
+- Container health monitoring
+- Automatic rollback on deployment failure
+- Nginx error handling for 404s and static files
 
-## Data Flow Patterns
-1. Repository Layer:
-   - Abstract data access
-   - HTTP client implementation
-   - Response mapping
+## Development Workflow
 
-2. Service Layer:
-   - Business logic encapsulation
-   - Cross-cutting concerns
+### Local Development
+```mermaid
+graph TD
+    Dev[Developer] --> Docker[Docker Compose]
+    Docker --> HMR[Hot Module Reload]
+    Docker --> Volumes[Volume Mounts]
+    HMR --> App[Application]
+    Volumes --> App
+```
 
-3. Component Layer:
-   - Custom hooks for data access
-   - Separation of UI and business logic
+### Production Build Process
+```mermaid
+graph TD
+    Source --> Builder[Node Builder Stage]
+    Builder --> Assets[Built Assets]
+    Assets --> Nginx[Nginx Stage]
+    Nginx --> Deploy[Deployment]
+```
 
-## Technical Decisions
-1. **TypeScript** for type safety and better development experience
-2. **Vite** for fast development and optimized builds
-3. **Tailwind** for utility-first styling
-4. **i18n** for internationalization support
-5. **Clean Architecture** for maintainability and testability
+## Operating Patterns
 
-## Operational Patterns
-1. Environment-based configuration
-   - Development settings
-   - API endpoints configuration
+### Container Lifecycle
+1. Build new image
+2. Start new container
+3. Health verification
+4. Traffic migration
+5. Cleanup old container
 
-2. Authentication flow:
-   - Token-based authentication
-   - Protected route pattern
-   - Auth state management
-
-3. Route management:
-   - Public vs private routes
-   - Role-based access control
-   - Route configuration patterns
+### Monitoring Points
+- Container health status
+- Nginx proxy status
+- Build process completion
+- Deployment verification
