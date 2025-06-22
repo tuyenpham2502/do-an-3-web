@@ -29,15 +29,10 @@ class HttpClient {
   private abortController: AbortController | null = null;
   private readonly loggerService: LoggerService = new LoggerService();
   private readonly localStorageService: LocalStorageService = new LocalStorageService();
-  private readonly MAX_RETRIES: number;
   private readonly TIMEOUT: number;
 
-  constructor(
-    timeout: number = Number(import.meta.env.VITE_APP_TIMEOUT) || 30000,
-    maxRetries: number = Number(import.meta.env.VITE_APP_MAX_RETRIES) || 3
-  ) {
+  constructor(timeout: number = Number(import.meta.env.VITE_APP_TIMEOUT) || 30000) {
     this.TIMEOUT = timeout;
-    this.MAX_RETRIES = maxRetries;
 
     this.instance = axios.create({
       baseURL: import.meta.env.VITE_APP_API_URL,
@@ -76,10 +71,7 @@ class HttpClient {
     return response;
   }
 
-  private async handleResponseError(
-    error: AxiosError<ErrorResponse>,
-    retryCount: number = 0
-  ): Promise<any> {
+  private async handleResponseError(error: AxiosError<ErrorResponse>): Promise<any> {
     if (!error.response) {
       this.loggerService.error('Network Error:', error.message);
       throw new NetworkException('Network error occurred');
@@ -88,19 +80,11 @@ class HttpClient {
     const { status, config } = error.response;
     if (status === 401 && !config.url?.includes(Endpoints.Auth.LOGIN))
       return this.handle401Error(error);
-    if ([500, 502, 503, 504, 429].includes(status) && retryCount < this.MAX_RETRIES) {
-      return this.retryRequest(config!, retryCount);
-    }
+    // if ([500, 502, 503, 504, 429].includes(status) && retryCount < this.MAX_RETRIES) {
+    //   return this.retryRequest(config!, retryCount);
+    // }
 
     throw this.formatError(error);
-  }
-
-  private async retryRequest(config: InternalAxiosRequestConfig, retryCount: number): Promise<any> {
-    const delay = Math.min(Math.pow(2, retryCount) * 1000, 10000);
-    await new Promise((resolve) => setTimeout(resolve, delay));
-    return this.instance
-      .request(config)
-      .catch((err: AxiosError<ErrorResponse>) => this.handleResponseError(err, retryCount + 1));
   }
 
   private async handle401Error(error: AxiosError<ErrorResponse>): Promise<any> {
