@@ -4,7 +4,11 @@
 
 import { Socket, io } from 'socket.io-client';
 
-export const useWebSocket = ({ url = import.meta.env.VITE_APP_WEBSOCKET_URL }): Socket => {
+export const useWebSocket = ({
+  url = import.meta.env.VITE_APP_WEBSOCKET_URL,
+}: {
+  url?: string;
+}): Socket => {
   const socket = io(url, {
     transports: ['websocket'], // Enforce WebSocket transport
     reconnectionAttempts: 5, // Retry connection up to 5 times

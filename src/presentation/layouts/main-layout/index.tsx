@@ -26,7 +26,7 @@ const MainLayout = (props: MainLayoutProps) => {
   const setSensor = useSetAtom(sensorAtom);
 
   useEffect(() => {
-    const socket = useWebSocket();
+    const socket = useWebSocket({});
 
     socket.on('sensorData', (data: Sensor) => {
       setSensor(data); // Update the sensor atom with the received data
