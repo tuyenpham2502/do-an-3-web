@@ -9,29 +9,25 @@ import {
 } from '@/presentation/components/ui/form';
 import { Input } from '@/presentation/components/ui/input';
 import { Separator } from '@/presentation/components/ui/separator';
-import { toast } from '@/presentation/hooks/use-toast';
+import { useGetSystemSetting } from '@/presentation/hooks/system-setting/useGetSystemSetting';
+import { useUpdateSystemSetting } from '@/presentation/hooks/system-setting/useUpdateSystemSetting';
+import { systemSettingSchema } from '@/shared/schemas/system-setting/system-setting';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as z from 'zod';
 
-const formSchema = z.object({
-  tempThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  tempThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  humiThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  humiThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  soilMoistureThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  soilMoistureThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-});
-
-type SettingsFormValues = z.infer<typeof formSchema>;
+type SettingsFormValues = z.infer<typeof systemSettingSchema>;
 
 const SettingPage: React.FC = () => {
   const { t } = useTranslation();
 
+  const { data: dataSetting } = useGetSystemSetting(); // Fetches the current settings
+  const { updateSystemSetting, isPending } = useUpdateSystemSetting(); // Provides the update function
+
   const form = useForm<SettingsFormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(systemSettingSchema),
     defaultValues: {
       tempThreshold1: 0,
       tempThreshold2: 0,
@@ -42,15 +38,43 @@ const SettingPage: React.FC = () => {
     },
   });
 
-  const onSubmit = (values: SettingsFormValues) => {
-    // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.log('Form submitted with values:', values);
-    toast({
-      title: 'Settings Updated',
-      description: 'Your threshold settings have been saved.',
-    });
-    // Here you would typically send the data to an API
+  React.useEffect(() => {
+    if (dataSetting) {
+      form.reset({
+        tempThreshold1: dataSetting.tempThreshold1,
+        tempThreshold2: dataSetting.tempThreshold2,
+        humiThreshold1: dataSetting.humiThreshold1,
+        humiThreshold2: dataSetting.humiThreshold2,
+        soilMoistureThreshold1: dataSetting.soilMoistureThreshold1,
+        soilMoistureThreshold2: dataSetting.soilMoistureThreshold2,
+      });
+    }
+  }, [dataSetting, form]);
+
+  const onSubmit = async (values: SettingsFormValues) => {
+    try {
+      await updateSystemSetting({
+        ...values,
+        isPumpOn: dataSetting?.isPumpOn ?? false,
+      });
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
+    } catch {}
   };
+
+  React.useEffect(() => {
+    if (dataSetting) {
+      form.reset({
+        tempThreshold1: dataSetting.tempThreshold1,
+        tempThreshold2: dataSetting.tempThreshold2,
+        humiThreshold1: dataSetting.humiThreshold1,
+        humiThreshold2: dataSetting.humiThreshold2,
+        soilMoistureThreshold1: dataSetting.soilMoistureThreshold1,
+        soilMoistureThreshold2: dataSetting.soilMoistureThreshold2,
+      });
+    }
+  }, [dataSetting, form]);
+
+  // Removed duplicate onSubmit to resolve redeclaration error
 
   return (
     <div className='space-y-6'>
@@ -65,6 +89,7 @@ const SettingPage: React.FC = () => {
           </div>
         </div>
         <Button
+          disabled={isPending}
           onClick={() => {
             form.handleSubmit(onSubmit)();
           }}
