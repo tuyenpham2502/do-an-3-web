@@ -11,13 +11,14 @@ import {
 import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { NavMain } from '@/presentation/layouts/main-layout/sidebar/nav-main';
 import { NavUser } from '@/presentation/layouts/main-layout/sidebar/nav-user';
+import { AppRoutes } from '@/shared/appRoutes';
 import { useAtomValue } from 'jotai';
 
 const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '/dashboard',
+      url: AppRoutes.PRIVATE.DASHBOARD,
       icon: Home,
       isActive: true,
     },
@@ -28,7 +29,7 @@ const data = {
     },
     {
       title: 'Settings',
-      url: '/settings',
+      url: AppRoutes.PRIVATE.SETTING,
       icon: Settings2,
     },
   ],

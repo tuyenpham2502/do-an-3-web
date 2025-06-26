@@ -1,29 +1,21 @@
 # Active Context
 
 ## Current Focus
-- Developing the user profile page
-- Implementing profile data display and editing
-- Integrating with existing profile data fetching hooks
+- Language functionality for the settings page has been addressed.
+- Consolidating i18n translation files.
 
 ## Recent Changes
-1. Initialized profile page development:
-   - Read existing `src/presentation/pages/profile/index.tsx` placeholder.
-   - Reviewed `src/presentation/layouts/main-layout/index.tsx` for layout structure.
-   - Confirmed profile page routing in `src/presentation/routes/routers.tsx`.
+1. Resolved language issue in `src/presentation/pages/setting/index.tsx`:
+   - Identified duplicate i18n configurations and misplaced translation files.
+   - Moved `settings` translations from `src/presentation/providers/i18n/locales/` to `src/shared/i18n/locales/`.
+   - Removed the redundant `src/presentation/providers/i18n/` directory.
 
 ## Active Files
-- `src/presentation/pages/profile/index.tsx` - Profile page component
-- `src/presentation/layouts/main-layout/index.tsx` - Main application layout
-- `src/presentation/routes/routers.tsx` - Application routing configuration
+- `src/presentation/pages/setting/index.tsx` - Settings page component
+- `src/shared/i18n/i18n.ts` - Main i18n configuration
+- `src/shared/i18n/locales/en/common.json` - English translation file
+- `src/shared/i18n/locales/vi/common.json` - Vietnamese translation file
 
 ## Next Steps
-1. Implement profile page UI:
-   - Display user information using `useGetProfile` hook.
-   - Create an editable form for profile details.
-   - Utilize existing UI components (`Avatar`, `Label`, `Input`, `Button`).
-2. Add profile update functionality:
-   - Implement form submission logic.
-   - Integrate with a profile update API (if available or needed).
-3. Refine UI/UX:
-   - Ensure responsive design.
-   - Add validation and error handling for the form.
+1. Verify language functionality on the settings page.
+2. Continue with previous task of developing the user profile page.

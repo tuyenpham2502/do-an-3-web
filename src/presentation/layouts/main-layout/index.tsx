@@ -1,6 +1,7 @@
 import { sensorAtom } from '@/application/stores/atoms/global/sensor';
 import { Sensor } from '@/domain/models/sensor/Sensor';
 import { useWebSocket } from '@/infrastructure/hooks/useWebSocket';
+import { LanguageSwitcher } from '@/presentation/components/commons/language-switcher';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -55,6 +56,9 @@ const MainLayout = (props: MainLayoutProps) => {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+          <div className='ml-auto flex items-center gap-2'>
+            <LanguageSwitcher />
+          </div>
         </header>
         {children}
       </SidebarInset>

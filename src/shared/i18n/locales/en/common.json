@@ -17,7 +17,20 @@
     "info": "Information",
     "toggleTheme": "Toggle theme",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "saveChanges": "Save Changes"
+  },
+  "settings": {
+    "title": "Threshold Settings",
+    "description": "Manage the threshold values for temperature, humidity, and soil moisture sensors.",
+    "language": "Language",
+    "languageDescription": "Change the display language of the application.",
+    "tempThreshold1": "Temperature Threshold 1",
+    "tempThreshold2": "Temperature Threshold 2",
+    "humiThreshold1": "Humidity Threshold 1",
+    "humiThreshold2": "Humidity Threshold 2",
+    "soilMoistureThreshold1": "Soil Moisture Threshold 1",
+    "soilMoistureThreshold2": "Soil Moisture Threshold 2"
   },
   "auth": {
     "email": "Email",
