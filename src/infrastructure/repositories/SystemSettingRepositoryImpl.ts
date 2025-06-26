@@ -9,4 +9,12 @@ export const SystemSettingRepositoryImpl = (): SystemSettingRepository => ({
     useGetApi<any>({ endpoint: Endpoints.SystemSetting.GET_SYSTEM_SETTING, options }),
   updateSystemSetting: () =>
     usePutApi<UserResponse>({ endpoint: Endpoints.SystemSetting.UPDATE_SYSTEM_SETTING }),
+  getReplaySetting: (options?: Omit<UseQueryOptions<any, any>, 'queryKey' | 'queryFn'>) =>
+    useGetApi<any>({ endpoint: Endpoints.SystemSetting.GET_REPLAY_SETTING, options }),
+  updateReplaySetting: () =>
+    usePutApi<any>({ endpoint: Endpoints.SystemSetting.UPDATE_REPLAY_SETTING }),
+  getAutoWarningSetting: (options?: Omit<UseQueryOptions<any, any>, 'queryKey' | 'queryFn'>) =>
+    useGetApi<any>({ endpoint: Endpoints.SystemSetting.GET_AUTO_WARNING_SETTING, options }),
+  updateAutoWarningSetting: () =>
+    usePutApi<any>({ endpoint: Endpoints.SystemSetting.UPDATE_AUTO_WARNING_SETTING }),
 });

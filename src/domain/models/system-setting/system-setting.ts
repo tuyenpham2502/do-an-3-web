@@ -7,3 +7,8 @@ export interface SystemSetting {
   soilMoistureThreshold1: number;
   soilMoistureThreshold2: number;
 }
+
+export interface Setting {
+  autoWarning: boolean;
+  isPumpOn: boolean;
+}

@@ -26,7 +26,11 @@
     "temperature": "Temperature",
     "humidity": "Humidity",
     "soilMoisture": "Soil Moisture",
-    "waitingForSensorData": "Waiting for sensor data..."
+    "waitingForSensorData": "Waiting for sensor data...",
+    "pumpStatus": "Pump Status",
+    "on": "On",
+    "off": "Off",
+    "autoWarning": "Auto Warning"
   },
   "settings": {
     "title": "Threshold Settings",

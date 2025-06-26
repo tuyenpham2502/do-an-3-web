@@ -1,15 +1,9 @@
 import { sensorAtom } from '@/application/stores/atoms/global/sensor';
+import { settingAtom } from '@/application/stores/atoms/global/setting';
 import { Sensor } from '@/domain/models/sensor/Sensor';
+import { Setting } from '@/domain/models/system-setting/system-setting';
 import { useWebSocket } from '@/infrastructure/hooks/useWebSocket';
 import { LanguageSwitcher } from '@/presentation/components/commons/language-switcher';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/presentation/components/ui/breadcrumb';
 import {
   SidebarInset,
   SidebarProvider,
@@ -25,12 +19,17 @@ interface MainLayoutProps {
 
 const MainLayout = (props: MainLayoutProps) => {
   const setSensor = useSetAtom(sensorAtom);
+  const setting = useSetAtom(settingAtom); // Assuming you want to set the same atom for settings
 
   useEffect(() => {
     const socket = useWebSocket({});
 
     socket.on('sensorData', (data: Sensor) => {
       setSensor(data); // Update the sensor atom with the received data
+    });
+
+    socket.on('settingData', (data: Setting) => {
+      setting(data); // Update the setting atom with the received data
     });
     return () => {
       socket.close();
@@ -45,17 +44,6 @@ const MainLayout = (props: MainLayoutProps) => {
         <header className='flex h-16 shrink-0 items-center gap-2 border-b px-4'>
           <SidebarTrigger className='-ml-1' />
           <Separator orientation='vertical' className='mr-2 data-[orientation=vertical]:h-4' />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className='hidden md:block'>
-                <BreadcrumbLink href='#'>Building Your Application</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className='hidden md:block' />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
           <div className='ml-auto flex items-center gap-2'>
             <LanguageSwitcher />
           </div>
