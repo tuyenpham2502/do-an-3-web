@@ -9,7 +9,7 @@ export const Endpoints = {
     RESET_PASSWORD: `${API_PREFIX}/auth/reset-password`,
   },
   Profile: {
-    GET_PROFILE: `${API_PREFIX}/profile`,
+    GET_PROFILE: `${API_PREFIX}/auth/profile`,
     UPDATE_PROFILE: `${API_PREFIX}/profile`,
   },
   Sensor: {

@@ -1,8 +1,8 @@
 export interface UserResponse {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  role: string;
   avatarUrl?: string;
   createdAt: string;
   updatedAt: string;

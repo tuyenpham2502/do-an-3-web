@@ -1,79 +1,32 @@
-# Project Progress
+# Progress Tracking
 
-## Current Capabilities (Working)
+## Completed Features
 
-### 1. Project Structure (100%)
-- ✅ Clean architecture implementation
-- ✅ Directory organization
-- ✅ Base configuration files
-- ✅ TypeScript setup
+### User Profile Page
+- ✅ Initial page component created (`src/presentation/pages/profile/index.tsx`)
+- ✅ Routing confirmed (`src/presentation/routes/routers.tsx`)
+- ✅ Main layout integration confirmed (`src/presentation/layouts/main-layout/index.tsx`)
 
-### 2. Core Infrastructure (90%)
-- ✅ HTTP client setup
-- ✅ Repository interfaces
-- ✅ Base service implementations
-- ⏳ Error handling refinement needed
+## Current Capabilities
+- Basic profile page placeholder rendered
+- Application routing correctly directs to profile page
+- Profile page integrates with `MainLayout`
 
-### 3. Authentication (80%)
-- ✅ Auth repository implementation
-- ✅ Login flow structure
-- ✅ Protected routes
-- ⏳ Token refresh mechanism
-- ❌ Logout flow completion
+## Pending Tasks
+1. User Profile Page Development
+   - [ ] Implement profile data display (using `useGetProfile`)
+   - [ ] Create editable profile form
+   - [ ] Integrate UI components (`Avatar`, `Label`, `Input`, `Button`)
+   - [ ] Implement profile update functionality
+   - [ ] Add form validation and error handling
+   - [ ] Ensure responsive design
 
-### 4. User Management (70%)
-- ✅ User repository implementation
-- ✅ Basic profile management
-- ⏳ User listing implementation
-- ❌ User CRUD operations
-- ❌ Role management
+## Progress Estimate
+- User Profile Page: 10% (initial setup)
+- Overall: 55%
 
-### 5. Internationalization (95%)
-- ✅ i18n setup
-- ✅ Language switching
-- ✅ English translations
-- ✅ Vietnamese translations
-- ⏳ Missing translation keys
-
-### 6. UI/UX (60%)
-- ✅ Layout structure
-- ✅ Tailwind configuration
-- ✅ Basic components
-- ⏳ Theme implementation
-- ❌ Responsive design completion
-- ❌ Loading states
-- ❌ Error states
-
-## Pending Features
-
-### High Priority
-1. 🔴 Complete user CRUD operations
-2. 🔴 Implement token refresh mechanism
-3. 🔴 Add loading and error states
-
-### Medium Priority
-1. 🟡 Enhance error handling
-2. 🟡 Implement responsive design
-3. 🟡 Add user role management
-4. 🟡 Complete logout flow
-
-### Low Priority
-1. 🟢 Add unit tests
-2. 🟢 Implement logging system
-3. 🟢 Add API documentation
-4. 🟢 Performance optimization
-
-## Overall Progress
-- **Core Features**: ~80% complete
-- **UI Implementation**: ~60% complete
-- **Testing**: ~10% complete
-- **Documentation**: ~40% complete
-
-**Total Project Progress: ~65%**
-
-## Next Milestone Goals
-1. Complete user management features
-2. Implement token refresh
-3. Add loading/error states
-4. Complete responsive design
-5. Implement logging system
+## Known Issues
+- Profile page content is currently a placeholder.
+ 
+## Next Milestone
+- Implement full profile page UI and functionality.

@@ -16,7 +16,20 @@
     "success": "Thành công",
     "toggleTheme": "Chuyển đổi giao diện",
     "light": "Sáng",
-    "dark": "Tối"
+    "dark": "Tối",
+    "saveChanges": "Lưu thay đổi"
+  },
+  "settings": {
+    "title": "Cài đặt ngưỡng",
+    "description": "Quản lý các giá trị ngưỡng cho cảm biến nhiệt độ, độ ẩm và độ ẩm đất.",
+    "language": "Ngôn ngữ",
+    "languageDescription": "Thay đổi ngôn ngữ hiển thị của ứng dụng.",
+    "tempThreshold1": "Ngưỡng nhiệt độ 1",
+    "tempThreshold2": "Ngưỡng nhiệt độ 2",
+    "humiThreshold1": "Ngưỡng độ ẩm 1",
+    "humiThreshold2": "Ngưỡng độ ẩm 2",
+    "soilMoistureThreshold1": "Ngưỡng độ ẩm đất 1",
+    "soilMoistureThreshold2": "Ngưỡng độ ẩm đất 2"
   },
   "auth": {
     "email": "Email",

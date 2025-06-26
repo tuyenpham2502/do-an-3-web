@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Suspense } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import FullPageLoading from './presentation/components/commons/FullPageLoading';
 import { Toaster } from './presentation/components/ui/toaster';
 import { routes } from './presentation/routes/routers';
 import { AppRoutes } from './shared/appRoutes';
@@ -16,13 +17,7 @@ const queryClient = new QueryClient();
 const RouteRoot = () => {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div>
-            <h1>Loading...</h1>
-          </div>
-        }
-      >
+      <Suspense fallback={<FullPageLoading />}>
         <Routes>
           {routes.map(({ path, component: Component, isProtected, layout: Layout, title }) => {
             // Xử lý redirect (không dùng Public/Private)
