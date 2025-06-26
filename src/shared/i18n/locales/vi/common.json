@@ -25,7 +25,11 @@
     "temperature": "Nhiệt độ",
     "humidity": "Độ ẩm",
     "soilMoisture": "Độ ẩm đất",
-    "waitingForSensorData": "Đang chờ dữ liệu cảm biến..."
+    "waitingForSensorData": "Đang chờ dữ liệu cảm biến...",
+    "pumpStatus": "Trạng thái bơm",
+    "on": "Bật",
+    "off": "Tắt",
+    "autoWarning": "Cảnh báo tự động"
   },
   "settings": {
     "title": "Cài đặt ngưỡng",

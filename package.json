@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "dev": "vite --mode development --port 3001",
+    "dev": "vite --mode development --port 3001 --host",
     "build": "tsc -b && vite build",
     "check": "biome check",
     "fix:check": "biome check --write",
@@ -24,6 +24,7 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.2.5",
     "@radix-ui/react-toast": "^1.2.14",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@tanstack/query-core": "^5.81.2",
@@ -49,8 +50,8 @@
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.25.63",
-    "tsyringe": "^4.8.0"
+    "tsyringe": "^4.8.0",
+    "zod": "^3.25.63"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

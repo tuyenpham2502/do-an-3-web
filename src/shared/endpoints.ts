@@ -15,6 +15,10 @@ export const Endpoints = {
   SystemSetting: {
     GET_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
     UPDATE_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
+    GET_REPLAY_SETTING: `${API_PREFIX}/system-config/relay-control`,
+    UPDATE_REPLAY_SETTING: `${API_PREFIX}/system-config/relay-control`,
+    GET_AUTO_WARNING_SETTING: `${API_PREFIX}/system-config/auto-warning-control`,
+    UPDATE_AUTO_WARNING_SETTING: `${API_PREFIX}/system-config/auto-warning-control`,
   },
   Users: {
     GET_USERS: `${API_PREFIX}/users`,
