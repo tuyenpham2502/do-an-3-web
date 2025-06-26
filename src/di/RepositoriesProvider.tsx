@@ -1,5 +1,6 @@
 import { AuthRepositoryImpl } from '@/infrastructure/repositories/AuthRepositoryImpl';
 import { ProfileRepositoryImpl } from '@/infrastructure/repositories/ProfileRepositoryImpl';
+import { SystemSettingRepositoryImpl } from '@/infrastructure/repositories/SystemSettingRepositoryImpl';
 import { UserRepositoryImpl } from '@/infrastructure/repositories/UserRepositoryImpl';
 import { ReactNode, createContext, useContext, useMemo } from 'react';
 
@@ -8,6 +9,7 @@ export interface RepositoryContainer {
   authRepository: ReturnType<typeof AuthRepositoryImpl>;
   userRepository: ReturnType<typeof UserRepositoryImpl>;
   profileRepository: ReturnType<typeof ProfileRepositoryImpl>; // Optional if you have a profile repository
+  systemSettingRepository: ReturnType<typeof SystemSettingRepositoryImpl>; // Optional if you have a profile repository
 }
 
 // 2. Tạo context với kiểu rõ ràng
@@ -25,6 +27,7 @@ export const RepositoryProvider = ({ children }: RepositoryProviderProps) => {
       authRepository: AuthRepositoryImpl(),
       userRepository: UserRepositoryImpl(),
       profileRepository: ProfileRepositoryImpl(), // Optional, can be removed if not needed
+      systemSettingRepository: SystemSettingRepositoryImpl(), // Optional, can be removed if not needed
     }),
     []
   );

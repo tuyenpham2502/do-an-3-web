@@ -18,7 +18,15 @@
     "toggleTheme": "Toggle theme",
     "light": "Light",
     "dark": "Dark",
-    "saveChanges": "Save Changes"
+    "saveChanges": "Save Changes",
+    "analytics": "Analytics"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "soilMoisture": "Soil Moisture",
+    "waitingForSensorData": "Waiting for sensor data..."
   },
   "settings": {
     "title": "Threshold Settings",
@@ -30,7 +38,16 @@
     "humiThreshold1": "Humidity Threshold 1",
     "humiThreshold2": "Humidity Threshold 2",
     "soilMoistureThreshold1": "Soil Moisture Threshold 1",
-    "soilMoistureThreshold2": "Soil Moisture Threshold 2"
+    "soilMoistureThreshold2": "Soil Moisture Threshold 2",
+    "tempThreshold1Help": "The minimum temperature threshold for alerts.",
+    "tempThreshold2Help": "The maximum temperature threshold for alerts.",
+    "humiThreshold1Help": "The minimum humidity threshold for alerts.",
+    "humiThreshold2Help": "The maximum humidity threshold for alerts.",
+    "soilMoistureThreshold1Help": "The minimum soil moisture threshold for alerts.",
+    "soilMoistureThreshold2Help": "The maximum soil moisture threshold for alerts.",
+    "temperatureSection": "Temperature",
+    "humiditySection": "Humidity",
+    "soilMoistureSection": "Soil Moisture"
   },
   "auth": {
     "email": "Email",

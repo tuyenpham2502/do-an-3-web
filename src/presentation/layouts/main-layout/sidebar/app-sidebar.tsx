@@ -1,5 +1,6 @@
 import { Home, LineChart, Settings2 } from 'lucide-react';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { profileAtom } from '@/application/stores/atoms/global/profile';
 import {
@@ -14,34 +15,33 @@ import { NavUser } from '@/presentation/layouts/main-layout/sidebar/nav-user';
 import { AppRoutes } from '@/shared/appRoutes';
 import { useAtomValue } from 'jotai';
 
-const data = {
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: AppRoutes.PRIVATE.DASHBOARD,
-      icon: Home,
-      isActive: true,
-    },
-    {
-      title: 'Analytics',
-      url: '/analytics',
-      icon: LineChart,
-    },
-    {
-      title: 'Settings',
-      url: AppRoutes.PRIVATE.SETTING,
-      icon: Settings2,
-    },
-  ],
-};
+const getNavMain = (t: (key: string) => string) => [
+  {
+    title: t('dashboard.dashboard'),
+    url: AppRoutes.PRIVATE.DASHBOARD,
+    icon: Home,
+    isActive: true,
+  },
+  {
+    title: t('common.analytics'),
+    url: '/analytics',
+    icon: LineChart,
+  },
+  {
+    title: t('common.settings'),
+    url: AppRoutes.PRIVATE.SETTING,
+    icon: Settings2,
+  },
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const profile = useAtomValue(profileAtom);
+  const { t } = useTranslation();
 
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={getNavMain(t)} />
       </SidebarContent>
       <SidebarFooter>
         {profile.isLoading ? (

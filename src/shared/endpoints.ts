@@ -12,8 +12,9 @@ export const Endpoints = {
     GET_PROFILE: `${API_PREFIX}/auth/profile`,
     UPDATE_PROFILE: `${API_PREFIX}/profile`,
   },
-  Sensor: {
-    GET_SENSOR_DATA: `${API_PREFIX}/sensors/data`,
+  SystemSetting: {
+    GET_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
+    UPDATE_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
   },
   Users: {
     GET_USERS: `${API_PREFIX}/users`,

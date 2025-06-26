@@ -17,7 +17,15 @@
     "toggleTheme": "Chuyển đổi giao diện",
     "light": "Sáng",
     "dark": "Tối",
-    "saveChanges": "Lưu thay đổi"
+    "saveChanges": "Lưu thay đổi",
+    "analytics": "Phân tích"
+  },
+  "dashboard": {
+    "dashboard": "Bảng điều khiển",
+    "temperature": "Nhiệt độ",
+    "humidity": "Độ ẩm",
+    "soilMoisture": "Độ ẩm đất",
+    "waitingForSensorData": "Đang chờ dữ liệu cảm biến..."
   },
   "settings": {
     "title": "Cài đặt ngưỡng",
@@ -29,7 +37,16 @@
     "humiThreshold1": "Ngưỡng độ ẩm 1",
     "humiThreshold2": "Ngưỡng độ ẩm 2",
     "soilMoistureThreshold1": "Ngưỡng độ ẩm đất 1",
-    "soilMoistureThreshold2": "Ngưỡng độ ẩm đất 2"
+    "soilMoistureThreshold2": "Ngưỡng độ ẩm đất 2",
+    "tempThreshold1Help": "Ngưỡng nhiệt độ tối thiểu để cảnh báo.",
+    "tempThreshold2Help": "Ngưỡng nhiệt độ tối đa để cảnh báo.",
+    "humiThreshold1Help": "Ngưỡng độ ẩm tối thiểu để cảnh báo.",
+    "humiThreshold2Help": "Ngưỡng độ ẩm tối đa để cảnh báo.",
+    "soilMoistureThreshold1Help": "Ngưỡng độ ẩm đất tối thiểu để cảnh báo.",
+    "soilMoistureThreshold2Help": "Ngưỡng độ ẩm đất tối đa để cảnh báo.",
+    "temperatureSection": "Nhiệt độ",
+    "humiditySection": "Độ ẩm",
+    "soilMoistureSection": "Độ ẩm đất"
   },
   "auth": {
     "email": "Email",
