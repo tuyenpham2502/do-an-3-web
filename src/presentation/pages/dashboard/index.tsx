@@ -40,17 +40,14 @@ const Dashboard = () => {
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0 && chartData.length === 0) {
       setChartData(
-        data
-          .slice(-30)
-          .reverse()
-          .map((d) => ({
-            ...d,
-            createdAt: new Date(d.createdAt).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            }),
-          }))
+        data.reverse().map((d) => ({
+          ...d,
+          createdAt: new Date(d.createdAt).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+        }))
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,11 +58,8 @@ const Dashboard = () => {
     if (sensorData && sensorData.time) {
       setChartData((prev) => {
         // Prevent duplicate if the latest already matches
-        if (prev.length > 0 && prev[prev.length - 1].time === sensorData.time) {
-          return prev;
-        }
         return [
-          ...prev.slice(-29),
+          ...prev,
           {
             ...sensorData,
             createdAt: new Date(sensorData.time).toLocaleTimeString([], {
@@ -238,14 +232,19 @@ const Dashboard = () => {
                 type='monotone'
                 dataKey='temperature'
                 stroke='#2563eb'
-                name='Temperature (°C)'
+                name={t('dashboard.temperatureChart')}
               />
-              <Line type='monotone' dataKey='humidity' stroke='#22c55e' name='Humidity (%)' />
+              <Line
+                type='monotone'
+                dataKey='humidity'
+                stroke='#22c55e'
+                name={t('dashboard.humidityChart')}
+              />
               <Line
                 type='monotone'
                 dataKey='soilMoisture'
                 stroke='#eab308'
-                name='Soil Moisture (%)'
+                name={t('dashboard.soilMoistureChart')}
               />
             </LineChart>
           </ResponsiveContainer>

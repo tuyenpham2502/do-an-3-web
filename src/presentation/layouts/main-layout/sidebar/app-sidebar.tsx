@@ -1,4 +1,4 @@
-import { Home, LineChart, Settings2 } from 'lucide-react';
+import { Home, Settings2 } from 'lucide-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -21,11 +21,6 @@ const getNavMain = (t: (key: string) => string) => [
     url: AppRoutes.PRIVATE.DASHBOARD,
     icon: Home,
     isActive: true,
-  },
-  {
-    title: t('common.analytics'),
-    url: '/analytics',
-    icon: LineChart,
   },
   {
     title: t('common.settings'),

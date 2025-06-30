@@ -29,7 +29,11 @@
     "pumpStatus": "Trạng thái bơm",
     "on": "Bật",
     "off": "Tắt",
-    "autoWarning": "Cảnh báo tự động"
+    "autoWarning": "Cảnh báo tự động",
+    "temperatureChart": "Nhiệt độ (°C)",
+    "humidityChart": "Độ ẩm (%)",
+    "soilMoistureChart": "Độ ẩm đất (%)",
+    "sensorTrends": "Biểu đồ xu hướng môi trường cây trồng"
   },
   "settings": {
     "title": "Cài đặt ngưỡng",
@@ -50,7 +54,19 @@
     "soilMoistureThreshold2Help": "Ngưỡng độ ẩm đất tối đa để cảnh báo.",
     "temperatureSection": "Nhiệt độ",
     "humiditySection": "Độ ẩm",
-    "soilMoistureSection": "Độ ẩm đất"
+    "soilMoistureSection": "Độ ẩm đất",
+    "plant": {
+      "raumam": "Rau mùi tàu",
+      "bapcai": "Bắp cải",
+      "cachua": "Cà chua",
+      "xalach": "Xà lách",
+      "duachuot": "Dưa chuột",
+      "senda": "Sen đá",
+      "raumui": "Rau mùi",
+      "selectTitle": "Chọn loại cây mẫu",
+      "selectPlaceholder": "Chọn loại cây hoặc tuỳ chỉnh",
+      "custom": "Tuỳ chỉnh"
+    }
   },
   "auth": {
     "email": "Email",
