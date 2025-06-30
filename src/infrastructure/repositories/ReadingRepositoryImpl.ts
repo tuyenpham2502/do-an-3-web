@@ -5,6 +5,9 @@ import { Endpoints } from '@/shared/endpoints';
 import { UseQueryOptions } from '@tanstack/react-query';
 
 export const ReadingRepositoryImpl = (): ReadingRepository => ({
-  getReading: (options: Omit<UseQueryOptions<any, any>, 'queryKey' | 'queryFn'>) =>
-    useGetApi<UserResponse>({ endpoint: Endpoints.Readings.GET_READINGS, options }),
+  getReading: (options?: Omit<UseQueryOptions<any, any>, 'queryKey' | 'queryFn'>) =>
+    useGetApi<UserResponse>({
+      endpoint: Endpoints.Readings.GET_READINGS,
+      options,
+    }),
 });
