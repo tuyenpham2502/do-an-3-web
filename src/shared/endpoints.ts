@@ -12,6 +12,9 @@ export const Endpoints = {
     GET_PROFILE: `${API_PREFIX}/auth/profile`,
     UPDATE_PROFILE: `${API_PREFIX}/profile`,
   },
+  Readings: {
+    GET_READINGS: `${API_PREFIX}/readings`,
+  },
   SystemSetting: {
     GET_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
     UPDATE_SYSTEM_SETTING: `${API_PREFIX}/system-config`,

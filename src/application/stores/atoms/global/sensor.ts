@@ -5,4 +5,5 @@ export const sensorAtom = atomWithReset<Sensor>({
   temperature: 0,
   humidity: 0,
   soilMoisture: 0,
+  time: '',
 });

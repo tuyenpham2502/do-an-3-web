@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+// Chart components
+import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import AnimatedNumber from '../../components/commons/AnimatedNumber';
 
 import { sensorAtom } from '@/application/stores/atoms/global/sensor';
@@ -7,6 +9,7 @@ import { settingAtom } from '@/application/stores/atoms/global/setting';
 import { Sensor } from '@/domain/models/sensor/Sensor';
 import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { Switch } from '@/presentation/components/ui/switch';
+import { useGetReadings } from '@/presentation/hooks/readings/useGetReadings';
 import { useGetAutoWarningSetting } from '@/presentation/hooks/system-setting/useGetAutoWarningSetting';
 import { useGetRelaySetting } from '@/presentation/hooks/system-setting/useGetRelaySetting';
 import { useUpdateAutoWarningSetting } from '@/presentation/hooks/system-setting/useUpdateAutoWarningSetting';
@@ -24,9 +27,57 @@ const Dashboard = () => {
     temperature: 0,
     humidity: 0,
     soilMoisture: 0,
+    time: '',
   });
+  const { data } = useGetReadings(); // Assuming this hook fetches the sensor data
   const { updateRelaySetting } = useUpdateRelaySetting(); // Provides the update function
   const { updateAutoWaringSetting } = useUpdateAutoWarningSetting(); // Assuming you have a similar hook for auto warning setting
+
+  // Chart data state for live updates
+  const [chartData, setChartData] = useState<any[]>([]);
+
+  // Initialize chart data from useGetReadings() once
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0 && chartData.length === 0) {
+      setChartData(
+        data
+          .slice(-30)
+          .reverse()
+          .map((d) => ({
+            ...d,
+            createdAt: new Date(d.createdAt).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            }),
+          }))
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  // Add new sensorData from socket to chartData
+  useEffect(() => {
+    if (sensorData && sensorData.time) {
+      setChartData((prev) => {
+        // Prevent duplicate if the latest already matches
+        if (prev.length > 0 && prev[prev.length - 1].time === sensorData.time) {
+          return prev;
+        }
+        return [
+          ...prev.slice(-29),
+          {
+            ...sensorData,
+            createdAt: new Date(sensorData.time).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            }),
+          },
+        ];
+      });
+    }
+  }, [sensorData]);
 
   // FIX: Add isLoadingRelay from useGetRelaySetting
   const { isLoading: isLoadingRelay } = useGetRelaySetting();
@@ -171,7 +222,35 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Auto Warning status switch */}
+      {/* Sensor Trends Chart */}
+      {chartData.length > 0 && (
+        <div className='mt-8 bg-white rounded-lg shadow-md p-6'>
+          <h3 className='text-xl font-bold mb-4'>
+            {t('dashboard.sensorTrends') || 'Sensor Trends'}
+          </h3>
+          <ResponsiveContainer width='100%' height={300}>
+            <LineChart data={chartData}>
+              <XAxis dataKey='createdAt' />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type='monotone'
+                dataKey='temperature'
+                stroke='#2563eb'
+                name='Temperature (°C)'
+              />
+              <Line type='monotone' dataKey='humidity' stroke='#22c55e' name='Humidity (%)' />
+              <Line
+                type='monotone'
+                dataKey='soilMoisture'
+                stroke='#eab308'
+                name='Soil Moisture (%)'
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 };
