@@ -30,7 +30,11 @@
     "pumpStatus": "Pump Status",
     "on": "On",
     "off": "Off",
-    "autoWarning": "Auto Warning"
+    "autoWarning": "Auto Warning",
+    "temperatureChart": "Temperature (°C)",
+    "humidityChart": "Humidity (%)",
+    "soilMoistureChart": "Soil Moisture (%)",
+    "sensorTrends": "Sensor Trends"
   },
   "settings": {
     "title": "Threshold Settings",
@@ -51,7 +55,19 @@
     "soilMoistureThreshold2Help": "The maximum soil moisture threshold for alerts.",
     "temperatureSection": "Temperature",
     "humiditySection": "Humidity",
-    "soilMoistureSection": "Soil Moisture"
+    "soilMoistureSection": "Soil Moisture",
+    "plant": {
+      "raumam": "Vietnamese Balm",
+      "bapcai": "Cabbage",
+      "cachua": "Tomato",
+      "xalach": "Lettuce",
+      "duachuot": "Cucumber",
+      "senda": "Lotus",
+      "raumui": "Mint",
+      "selectTitle": "Select Plant Preset",
+      "selectPlaceholder": "Choose a plant or custom",
+      "custom": "Custom"
+    }
   },
   "auth": {
     "email": "Email",

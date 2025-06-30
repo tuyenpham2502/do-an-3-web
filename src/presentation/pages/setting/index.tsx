@@ -1,5 +1,11 @@
 import { Button } from '@/presentation/components/ui/button';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/presentation/components/ui/dropdown-menu';
+import {
   Form,
   FormControl,
   FormField,
@@ -37,6 +43,103 @@ const SettingPage: React.FC = () => {
       soilMoistureThreshold2: 0,
     },
   });
+
+  // Plant presets
+  const plantPresets = {
+    raumam: {
+      label: t('settings.plant.raumam'),
+      icon: '🌱',
+      tempThreshold1: 20,
+      tempThreshold2: 25,
+      humiThreshold1: 50,
+      humiThreshold2: 70,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    bapcai: {
+      label: t('settings.plant.bapcai'),
+      icon: '🥬',
+      tempThreshold1: 15,
+      tempThreshold2: 21,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    cachua: {
+      label: t('settings.plant.cachua'),
+      icon: '🍅',
+      tempThreshold1: 15,
+      tempThreshold2: 25,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    xalach: {
+      label: t('settings.plant.xalach'),
+      icon: '🥗',
+      tempThreshold1: 15,
+      tempThreshold2: 20,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    duachuot: {
+      label: t('settings.plant.duachuot'),
+      icon: '🥒',
+      tempThreshold1: 20,
+      tempThreshold2: 25,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    senda: {
+      label: t('settings.plant.senda'),
+      icon: '🌸',
+      tempThreshold1: 15,
+      tempThreshold2: 25,
+      humiThreshold1: 30,
+      humiThreshold2: 50,
+      soilMoistureThreshold1: 30,
+      soilMoistureThreshold2: 50,
+    },
+    raumui: {
+      label: t('settings.plant.raumui'),
+      icon: '🌿',
+      tempThreshold1: 15,
+      tempThreshold2: 20,
+      humiThreshold1: 50,
+      humiThreshold2: 70,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+  };
+
+  type PlantKey = keyof typeof plantPresets;
+  const [selectedPlant, setSelectedPlant] = React.useState<PlantKey | null>(null);
+  const isReadonly = selectedPlant !== null;
+
+  const handlePlantSelect = (value: string) => {
+    if (value === 'custom') {
+      setSelectedPlant(null);
+      return;
+    }
+    const preset = plantPresets[value as keyof typeof plantPresets];
+    if (preset) {
+      form.reset({
+        tempThreshold1: preset.tempThreshold1,
+        tempThreshold2: preset.tempThreshold2,
+        humiThreshold1: preset.humiThreshold1,
+        humiThreshold2: preset.humiThreshold2,
+        soilMoistureThreshold1: preset.soilMoistureThreshold1,
+        soilMoistureThreshold2: preset.soilMoistureThreshold2,
+      });
+      setSelectedPlant(value as PlantKey);
+    }
+  };
 
   React.useEffect(() => {
     if (dataSetting) {
@@ -99,6 +202,48 @@ const SettingPage: React.FC = () => {
         </Button>
       </div>
       <Separator />
+      <div className='mb-6 flex flex-col items-center'>
+        <div className='flex items-center gap-3 mb-2'>
+          <span className='text-2xl'>🌿</span>
+          <span className='font-semibold text-lg'>{t('settings.plant.selectTitle')}</span>
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant='outline'
+              className='w-64 justify-between text-base font-medium shadow border-primary/30'
+            >
+              {selectedPlant ? (
+                <span className='truncate flex items-center'>
+                  <span className='mr-2'>{plantPresets[selectedPlant].icon}</span>
+                  {plantPresets[selectedPlant].label}
+                </span>
+              ) : (
+                <span className='truncate'>{t('settings.plant.selectPlaceholder')}</span>
+              )}
+              <svg width='18' height='18' fill='none' viewBox='0 0 24 24'>
+                <path
+                  d='M7 10l5 5 5-5'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='w-64 rounded-lg shadow-lg border border-primary/20'>
+            {Object.entries(plantPresets).map(([key, preset]) => (
+              <DropdownMenuItem key={key} onSelect={() => handlePlantSelect(key as PlantKey)}>
+                <span className='mr-2'>{preset.icon}</span> {preset.label}
+              </DropdownMenuItem>
+            ))}
+            <DropdownMenuItem onSelect={() => handlePlantSelect('custom')}>
+              <span className='mr-2'>✏️</span> {t('settings.plant.custom')}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           {/* Temperature Section */}
@@ -117,7 +262,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.tempThreshold1')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.tempThreshold1Help')}
@@ -133,7 +278,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.tempThreshold2')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.tempThreshold2Help')}
@@ -160,7 +305,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.humiThreshold1')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.humiThreshold1Help')}
@@ -176,7 +321,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.humiThreshold2')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.humiThreshold2Help')}

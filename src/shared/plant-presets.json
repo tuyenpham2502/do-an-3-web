@@ -1,0 +1,79 @@
+[
+  {
+    "key": "raumam",
+    "icon": "🌱",
+    "labelKey": "settings.plant.raumam",
+    "tempThreshold1": 20,
+    "tempThreshold2": 25,
+    "humiThreshold1": 50,
+    "humiThreshold2": 70,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  },
+  {
+    "key": "bapcai",
+    "icon": "🥬",
+    "labelKey": "settings.plant.bapcai",
+    "tempThreshold1": 15,
+    "tempThreshold2": 21,
+    "humiThreshold1": 60,
+    "humiThreshold2": 80,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  },
+  {
+    "key": "cachua",
+    "icon": "🍅",
+    "labelKey": "settings.plant.cachua",
+    "tempThreshold1": 15,
+    "tempThreshold2": 25,
+    "humiThreshold1": 60,
+    "humiThreshold2": 80,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  },
+  {
+    "key": "xalach",
+    "icon": "🥗",
+    "labelKey": "settings.plant.xalach",
+    "tempThreshold1": 15,
+    "tempThreshold2": 20,
+    "humiThreshold1": 60,
+    "humiThreshold2": 80,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  },
+  {
+    "key": "duachuot",
+    "icon": "🥒",
+    "labelKey": "settings.plant.duachuot",
+    "tempThreshold1": 20,
+    "tempThreshold2": 25,
+    "humiThreshold1": 60,
+    "humiThreshold2": 80,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  },
+  {
+    "key": "senda",
+    "icon": "🌸",
+    "labelKey": "settings.plant.senda",
+    "tempThreshold1": 15,
+    "tempThreshold2": 25,
+    "humiThreshold1": 30,
+    "humiThreshold2": 50,
+    "soilMoistureThreshold1": 30,
+    "soilMoistureThreshold2": 50
+  },
+  {
+    "key": "raumui",
+    "icon": "🌿",
+    "labelKey": "settings.plant.raumui",
+    "tempThreshold1": 15,
+    "tempThreshold2": 20,
+    "humiThreshold1": 50,
+    "humiThreshold2": 70,
+    "soilMoistureThreshold1": 60,
+    "soilMoistureThreshold2": 80
+  }
+]
