@@ -1,7 +1,6 @@
 import { profileAtom } from '@/application/stores/atoms/global/profile';
 import FullPageLoading from '@/presentation/components/commons/FullPageLoading';
 import { Avatar, AvatarFallback, AvatarImage } from '@/presentation/components/ui/avatar';
-import { Button } from '@/presentation/components/ui/button';
 import { Input } from '@/presentation/components/ui/input';
 import { Label } from '@/presentation/components/ui/label';
 import { Separator } from '@/presentation/components/ui/separator';
@@ -69,10 +68,6 @@ const ProfilePage = () => {
             />
           </div>
         </div>
-      </div>
-
-      <div className='mt-8 flex justify-end'>
-        <Button>Edit Profile</Button>
       </div>
     </div>
   );

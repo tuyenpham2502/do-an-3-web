@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import AnimatedNumber from '../../components/commons/AnimatedNumber';
 
+import { profileAtom } from '@/application/stores/atoms/global/profile';
 import { sensorAtom } from '@/application/stores/atoms/global/sensor';
 import { settingAtom } from '@/application/stores/atoms/global/setting';
 import { Sensor } from '@/domain/models/sensor/Sensor';
@@ -19,6 +20,8 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const Dashboard = () => {
   const { t } = useTranslation(['common']);
+  const profile = useAtomValue(profileAtom);
+
   const sensorData = useAtomValue(sensorAtom);
   const settingData = useAtomValue(settingAtom); // Assuming you want to use the same atom for settings
   const [isPumpOn, setIsPumpOn] = useState(false);
@@ -169,10 +172,15 @@ const Dashboard = () => {
             <>
               <Switch
                 checked={isPumpOn}
-                onCheckedChange={(checked) => {
-                  setIsPumpOn(checked);
-                  handleRelaySettingUpdate(checked);
-                }}
+                onCheckedChange={
+                  profile.data?.role === 'ADMIN'
+                    ? (checked) => {
+                        setIsPumpOn(checked);
+                        handleRelaySettingUpdate(checked);
+                      }
+                    : undefined
+                }
+                disabled={profile.data?.role !== 'ADMIN'}
                 className={`scale-150 transition-transform ${isPumpOn ? 'ring-2 ring-green-400' : 'ring-0'}`}
                 aria-label={t('dashboard.pumpStatus') || 'Pump Status'}
               />
@@ -199,10 +207,15 @@ const Dashboard = () => {
             <>
               <Switch
                 checked={isAutoWarningOn}
-                onCheckedChange={(checked) => {
-                  setIsAutoWarningOn(checked);
-                  handleAutoWarningSettingUpdate(checked);
-                }}
+                onCheckedChange={
+                  profile.data?.role === 'ADMIN'
+                    ? (checked) => {
+                        setIsAutoWarningOn(checked);
+                        handleAutoWarningSettingUpdate(checked);
+                      }
+                    : undefined
+                }
+                disabled={profile.data?.role !== 'ADMIN'}
                 className={`scale-150 transition-transform ${isAutoWarningOn ? 'ring-2 ring-blue-400' : 'ring-0'}`}
                 aria-label={t('dashboard.autoWarning') || 'Auto Warning'}
               />

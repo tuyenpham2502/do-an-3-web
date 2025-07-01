@@ -13,6 +13,7 @@ import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { NavMain } from '@/presentation/layouts/main-layout/sidebar/nav-main';
 import { NavUser } from '@/presentation/layouts/main-layout/sidebar/nav-user';
 import { AppRoutes } from '@/shared/appRoutes';
+import { Constants } from '@/shared/constants';
 import { useAtomValue } from 'jotai';
 
 const getNavMain = (t: (key: string) => string) => [
@@ -26,6 +27,13 @@ const getNavMain = (t: (key: string) => string) => [
     title: t('common.settings'),
     url: AppRoutes.PRIVATE.SETTING,
     icon: Settings2,
+    onlyAdmin: true,
+  },
+  {
+    title: t('common.users'),
+    url: AppRoutes.PRIVATE.USERS,
+    icon: Settings2,
+    onlyAdmin: true,
   },
 ];
 
@@ -36,7 +44,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarContent>
-        <NavMain items={getNavMain(t)} />
+        <NavMain
+          items={getNavMain(t).filter(
+            (item) => !item.onlyAdmin || profile.data?.role === Constants.ROLES.ADMIN.value
+          )}
+        />
       </SidebarContent>
       <SidebarFooter>
         {profile.isLoading ? (
