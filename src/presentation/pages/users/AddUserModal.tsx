@@ -24,7 +24,7 @@ import { Controller, useForm } from 'react-hook-form';
 interface AddUserModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: { email: string; name: string; role: string }) => void;
+  onSubmit?: () => void;
 }
 
 export default function AddUserModal({ open, onClose, onSubmit }: AddUserModalProps) {
@@ -43,6 +43,17 @@ export default function AddUserModal({ open, onClose, onSubmit }: AddUserModalPr
     if (!open) reset();
   }, [open, reset]);
 
+  const handleFormSubmit = async (data: AddUserSchema) => {
+    try {
+      await createUser(data);
+      if (onSubmit) onSubmit();
+      onClose();
+    } catch (_) {
+      // Optionally handle error, e.g., show a toast or set error state
+      // toast.error("Failed to create user");
+    }
+  };
+
   return (
     <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
@@ -51,20 +62,7 @@ export default function AddUserModal({ open, onClose, onSubmit }: AddUserModalPr
             <span className='flex items-center gap-2'>Add New User</span>
           </AlertDialogTitle>
         </AlertDialogHeader>
-        <form
-          onSubmit={handleSubmit(async (data) => {
-            try {
-              await createUser(data);
-              onSubmit(data);
-              onClose();
-              reset();
-            } catch {
-              // Optionally handle error, e.g., show a toast or set error state
-              // toast.error("Failed to create user");
-            }
-          })}
-          className='space-y-6'
-        >
+        <form onSubmit={handleSubmit(handleFormSubmit)} className='space-y-6'>
           <div className='grid grid-cols-1 gap-4'>
             <div>
               <Label className='mb-1 block'>Email</Label>
