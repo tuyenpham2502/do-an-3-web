@@ -52,6 +52,7 @@ const UsersPage = () => {
     data: apiData,
     isLoading,
     error,
+    refetch,
   } = useGetUser({
     page: 1, // Default to page 1, can be changed later
     limit: 10, // Default limit, can be adjusted
@@ -68,6 +69,7 @@ const UsersPage = () => {
   const [addModalOpen, setAddModalOpen] = React.useState(false);
   const handleAddUser = () => {
     setAddModalOpen(false);
+    refetch(); // Refetch users after adding a new user
   };
 
   if (error) {
