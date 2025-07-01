@@ -2,7 +2,10 @@ import { UserResponse } from '@/domain/models/User';
 import HttpClient from '@/infrastructure/http/HttpClient';
 import { Endpoints } from '@/shared/endpoints';
 import { buildUrl } from '@/shared/url';
+import { atom } from 'jotai';
 import { atomWithQuery } from 'jotai-tanstack-query';
+
+export const profileResetAtom = atom(false);
 
 export const profileAtom = atomWithQuery(() => {
   const httpClient = HttpClient;
@@ -20,9 +23,5 @@ export const profileAtom = atomWithQuery(() => {
       }
       return response.data;
     },
-    staleTime: 300000, // Data is fresh for 5 minutes
-    cacheTime: 900000, // Cache data for 15 minutes
-    retry: 2, // Retry failed requests twice
-    retryDelay: 1000, // Wait 1 second before retrying
   };
 });

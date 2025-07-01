@@ -25,6 +25,7 @@ export const Endpoints = {
   },
   Users: {
     GET_USERS: `${API_PREFIX}/users`,
+    CREATE_USER: `${API_PREFIX}/users`,
     GET_USER_BY_ID: `${API_PREFIX}/users/:id`,
     UPDATE_USER: `${API_PREFIX}/users/:id`,
     DELETE_USER: `${API_PREFIX}/users/:id`,
