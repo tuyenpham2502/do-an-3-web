@@ -12,11 +12,20 @@ export const Endpoints = {
     GET_PROFILE: `${API_PREFIX}/auth/profile`,
     UPDATE_PROFILE: `${API_PREFIX}/profile`,
   },
-  Sensor: {
-    GET_SENSOR_DATA: `${API_PREFIX}/sensors/data`,
+  Readings: {
+    GET_READINGS: `${API_PREFIX}/readings`,
+  },
+  SystemSetting: {
+    GET_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
+    UPDATE_SYSTEM_SETTING: `${API_PREFIX}/system-config`,
+    GET_REPLAY_SETTING: `${API_PREFIX}/system-config/relay-control`,
+    UPDATE_REPLAY_SETTING: `${API_PREFIX}/system-config/relay-control`,
+    GET_AUTO_WARNING_SETTING: `${API_PREFIX}/system-config/auto-warning-control`,
+    UPDATE_AUTO_WARNING_SETTING: `${API_PREFIX}/system-config/auto-warning-control`,
   },
   Users: {
     GET_USERS: `${API_PREFIX}/users`,
+    CREATE_USER: `${API_PREFIX}/users`,
     GET_USER_BY_ID: `${API_PREFIX}/users/:id`,
     UPDATE_USER: `${API_PREFIX}/users/:id`,
     DELETE_USER: `${API_PREFIX}/users/:id`,

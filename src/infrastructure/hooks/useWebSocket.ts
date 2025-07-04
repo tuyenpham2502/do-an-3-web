@@ -27,7 +27,7 @@ export const useWebSocket = ({
 
   socket.on('connect_error', (error) => {
     // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.error('Connection error:', error.message);
+    console.error('Connection error:', error);
   });
 
   socket.on('error', (error) => {

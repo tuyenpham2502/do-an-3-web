@@ -1,5 +1,11 @@
 import { Button } from '@/presentation/components/ui/button';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/presentation/components/ui/dropdown-menu';
+import {
   Form,
   FormControl,
   FormField,
@@ -9,29 +15,25 @@ import {
 } from '@/presentation/components/ui/form';
 import { Input } from '@/presentation/components/ui/input';
 import { Separator } from '@/presentation/components/ui/separator';
-import { toast } from '@/presentation/hooks/use-toast';
+import { useGetSystemSetting } from '@/presentation/hooks/system-setting/useGetSystemSetting';
+import { useUpdateSystemSetting } from '@/presentation/hooks/system-setting/useUpdateSystemSetting';
+import { systemSettingSchema } from '@/shared/schemas/system-setting/system-setting';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as z from 'zod';
 
-const formSchema = z.object({
-  tempThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  tempThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  humiThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  humiThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  soilMoistureThreshold1: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-  soilMoistureThreshold2: z.coerce.number().min(0, { message: 'Must be a non-negative number' }),
-});
-
-type SettingsFormValues = z.infer<typeof formSchema>;
+type SettingsFormValues = z.infer<typeof systemSettingSchema>;
 
 const SettingPage: React.FC = () => {
   const { t } = useTranslation();
 
+  const { data: dataSetting } = useGetSystemSetting(); // Fetches the current settings
+  const { updateSystemSetting, isPending } = useUpdateSystemSetting(); // Provides the update function
+
   const form = useForm<SettingsFormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(systemSettingSchema),
     defaultValues: {
       tempThreshold1: 0,
       tempThreshold2: 0,
@@ -42,15 +44,140 @@ const SettingPage: React.FC = () => {
     },
   });
 
-  const onSubmit = (values: SettingsFormValues) => {
-    // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.log('Form submitted with values:', values);
-    toast({
-      title: 'Settings Updated',
-      description: 'Your threshold settings have been saved.',
-    });
-    // Here you would typically send the data to an API
+  // Plant presets
+  const plantPresets = {
+    raumam: {
+      label: t('settings.plant.raumam'),
+      icon: '🌱',
+      tempThreshold1: 20,
+      tempThreshold2: 25,
+      humiThreshold1: 50,
+      humiThreshold2: 70,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    bapcai: {
+      label: t('settings.plant.bapcai'),
+      icon: '🥬',
+      tempThreshold1: 15,
+      tempThreshold2: 21,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    cachua: {
+      label: t('settings.plant.cachua'),
+      icon: '🍅',
+      tempThreshold1: 15,
+      tempThreshold2: 25,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    xalach: {
+      label: t('settings.plant.xalach'),
+      icon: '🥗',
+      tempThreshold1: 15,
+      tempThreshold2: 20,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    duachuot: {
+      label: t('settings.plant.duachuot'),
+      icon: '🥒',
+      tempThreshold1: 20,
+      tempThreshold2: 25,
+      humiThreshold1: 60,
+      humiThreshold2: 80,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
+    senda: {
+      label: t('settings.plant.senda'),
+      icon: '🌸',
+      tempThreshold1: 15,
+      tempThreshold2: 25,
+      humiThreshold1: 30,
+      humiThreshold2: 50,
+      soilMoistureThreshold1: 30,
+      soilMoistureThreshold2: 50,
+    },
+    raumui: {
+      label: t('settings.plant.raumui'),
+      icon: '🌿',
+      tempThreshold1: 15,
+      tempThreshold2: 20,
+      humiThreshold1: 50,
+      humiThreshold2: 70,
+      soilMoistureThreshold1: 60,
+      soilMoistureThreshold2: 80,
+    },
   };
+
+  type PlantKey = keyof typeof plantPresets;
+  const [selectedPlant, setSelectedPlant] = React.useState<PlantKey | null>(null);
+  const isReadonly = selectedPlant !== null;
+
+  const handlePlantSelect = (value: string) => {
+    if (value === 'custom') {
+      setSelectedPlant(null);
+      return;
+    }
+    const preset = plantPresets[value as keyof typeof plantPresets];
+    if (preset) {
+      form.reset({
+        tempThreshold1: preset.tempThreshold1,
+        tempThreshold2: preset.tempThreshold2,
+        humiThreshold1: preset.humiThreshold1,
+        humiThreshold2: preset.humiThreshold2,
+        soilMoistureThreshold1: preset.soilMoistureThreshold1,
+        soilMoistureThreshold2: preset.soilMoistureThreshold2,
+      });
+      setSelectedPlant(value as PlantKey);
+    }
+  };
+
+  React.useEffect(() => {
+    if (dataSetting) {
+      form.reset({
+        tempThreshold1: dataSetting.tempThreshold1,
+        tempThreshold2: dataSetting.tempThreshold2,
+        humiThreshold1: dataSetting.humiThreshold1,
+        humiThreshold2: dataSetting.humiThreshold2,
+        soilMoistureThreshold1: dataSetting.soilMoistureThreshold1,
+        soilMoistureThreshold2: dataSetting.soilMoistureThreshold2,
+      });
+    }
+  }, [dataSetting, form]);
+
+  const onSubmit = async (values: SettingsFormValues) => {
+    try {
+      await updateSystemSetting({
+        ...values,
+        isPumpOn: dataSetting?.isPumpOn ?? false,
+      });
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
+    } catch {}
+  };
+
+  React.useEffect(() => {
+    if (dataSetting) {
+      form.reset({
+        tempThreshold1: dataSetting.tempThreshold1,
+        tempThreshold2: dataSetting.tempThreshold2,
+        humiThreshold1: dataSetting.humiThreshold1,
+        humiThreshold2: dataSetting.humiThreshold2,
+        soilMoistureThreshold1: dataSetting.soilMoistureThreshold1,
+        soilMoistureThreshold2: dataSetting.soilMoistureThreshold2,
+      });
+    }
+  }, [dataSetting, form]);
+
+  // Removed duplicate onSubmit to resolve redeclaration error
 
   return (
     <div className='space-y-6'>
@@ -65,6 +192,7 @@ const SettingPage: React.FC = () => {
           </div>
         </div>
         <Button
+          disabled={isPending}
           onClick={() => {
             form.handleSubmit(onSubmit)();
           }}
@@ -74,6 +202,48 @@ const SettingPage: React.FC = () => {
         </Button>
       </div>
       <Separator />
+      <div className='mb-6 flex flex-col items-center'>
+        <div className='flex items-center gap-3 mb-2'>
+          <span className='text-2xl'>🌿</span>
+          <span className='font-semibold text-lg'>{t('settings.plant.selectTitle')}</span>
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant='outline'
+              className='w-64 justify-between text-base font-medium shadow border-primary/30'
+            >
+              {selectedPlant ? (
+                <span className='truncate flex items-center'>
+                  <span className='mr-2'>{plantPresets[selectedPlant].icon}</span>
+                  {plantPresets[selectedPlant].label}
+                </span>
+              ) : (
+                <span className='truncate'>{t('settings.plant.selectPlaceholder')}</span>
+              )}
+              <svg width='18' height='18' fill='none' viewBox='0 0 24 24'>
+                <path
+                  d='M7 10l5 5 5-5'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+              </svg>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='w-64 rounded-lg shadow-lg border border-primary/20'>
+            {Object.entries(plantPresets).map(([key, preset]) => (
+              <DropdownMenuItem key={key} onSelect={() => handlePlantSelect(key as PlantKey)}>
+                <span className='mr-2'>{preset.icon}</span> {preset.label}
+              </DropdownMenuItem>
+            ))}
+            <DropdownMenuItem onSelect={() => handlePlantSelect('custom')}>
+              <span className='mr-2'>✏️</span> {t('settings.plant.custom')}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           {/* Temperature Section */}
@@ -92,7 +262,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.tempThreshold1')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.tempThreshold1Help')}
@@ -108,7 +278,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.tempThreshold2')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.tempThreshold2Help')}
@@ -135,7 +305,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.humiThreshold1')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.humiThreshold1Help')}
@@ -151,7 +321,7 @@ const SettingPage: React.FC = () => {
                   <FormItem>
                     <FormLabel>{t('settings.humiThreshold2')}</FormLabel>
                     <FormControl>
-                      <Input type='number' {...field} />
+                      <Input type='number' {...field} readOnly={isReadonly} />
                     </FormControl>
                     <p className='text-xs text-muted-foreground'>
                       {t('settings.humiThreshold2Help')}

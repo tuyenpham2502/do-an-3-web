@@ -1,5 +1,6 @@
-import { Home, LineChart, Settings2 } from 'lucide-react';
+import { Home, Settings2 } from 'lucide-react';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { profileAtom } from '@/application/stores/atoms/global/profile';
 import {
@@ -12,36 +13,42 @@ import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { NavMain } from '@/presentation/layouts/main-layout/sidebar/nav-main';
 import { NavUser } from '@/presentation/layouts/main-layout/sidebar/nav-user';
 import { AppRoutes } from '@/shared/appRoutes';
+import { Constants } from '@/shared/constants';
 import { useAtomValue } from 'jotai';
 
-const data = {
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: AppRoutes.PRIVATE.DASHBOARD,
-      icon: Home,
-      isActive: true,
-    },
-    {
-      title: 'Analytics',
-      url: '/analytics',
-      icon: LineChart,
-    },
-    {
-      title: 'Settings',
-      url: AppRoutes.PRIVATE.SETTING,
-      icon: Settings2,
-    },
-  ],
-};
+const getNavMain = (t: (key: string) => string) => [
+  {
+    title: t('dashboard.dashboard'),
+    url: AppRoutes.PRIVATE.DASHBOARD,
+    icon: Home,
+    isActive: true,
+  },
+  {
+    title: t('common.settings'),
+    url: AppRoutes.PRIVATE.SETTING,
+    icon: Settings2,
+    onlyAdmin: true,
+  },
+  {
+    title: t('common.users'),
+    url: AppRoutes.PRIVATE.USERS,
+    icon: Settings2,
+    onlyAdmin: true,
+  },
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const profile = useAtomValue(profileAtom);
+  const { t } = useTranslation();
 
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain
+          items={getNavMain(t).filter(
+            (item) => !item.onlyAdmin || profile.data?.role === Constants.ROLES.ADMIN.value
+          )}
+        />
       </SidebarContent>
       <SidebarFooter>
         {profile.isLoading ? (

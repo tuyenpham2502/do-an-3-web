@@ -13,6 +13,7 @@ const LoginPage = lazy(() => import('@/presentation/pages/auth/login'));
 const ForgotPasswordPage = lazy(() => import('@/presentation/pages/auth/forgot-password'));
 const ResetPasswordPage = lazy(() => import('@/presentation/pages/auth/reset-password'));
 const SettingPage = lazy(() => import('@/presentation/pages/setting'));
+const UsersPage = lazy(() => import('@/presentation/pages/users'));
 
 /// Redirect component for root path
 const NavigateRoot = () => <Navigate to='/dashboard' replace />;
@@ -64,6 +65,13 @@ export const routes = [
     path: AppRoutes.PRIVATE.PROFILE,
     title: 'Profile',
     component: ProfilePage,
+    isProtected: true,
+    layout: MainLayout,
+  },
+  {
+    path: AppRoutes.PRIVATE.USERS,
+    title: 'Users',
+    component: UsersPage,
     isProtected: true,
     layout: MainLayout,
   },

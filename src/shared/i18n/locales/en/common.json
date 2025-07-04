@@ -18,7 +18,23 @@
     "toggleTheme": "Toggle theme",
     "light": "Light",
     "dark": "Dark",
-    "saveChanges": "Save Changes"
+    "saveChanges": "Save Changes",
+    "analytics": "Analytics"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "soilMoisture": "Soil Moisture",
+    "waitingForSensorData": "Waiting for sensor data...",
+    "pumpStatus": "Pump Status",
+    "on": "On",
+    "off": "Off",
+    "autoWarning": "Auto Warning",
+    "temperatureChart": "Temperature (°C)",
+    "humidityChart": "Humidity (%)",
+    "soilMoistureChart": "Soil Moisture (%)",
+    "sensorTrends": "Sensor Trends"
   },
   "settings": {
     "title": "Threshold Settings",
@@ -30,7 +46,28 @@
     "humiThreshold1": "Humidity Threshold 1",
     "humiThreshold2": "Humidity Threshold 2",
     "soilMoistureThreshold1": "Soil Moisture Threshold 1",
-    "soilMoistureThreshold2": "Soil Moisture Threshold 2"
+    "soilMoistureThreshold2": "Soil Moisture Threshold 2",
+    "tempThreshold1Help": "The minimum temperature threshold for alerts.",
+    "tempThreshold2Help": "The maximum temperature threshold for alerts.",
+    "humiThreshold1Help": "The minimum humidity threshold for alerts.",
+    "humiThreshold2Help": "The maximum humidity threshold for alerts.",
+    "soilMoistureThreshold1Help": "The minimum soil moisture threshold for alerts.",
+    "soilMoistureThreshold2Help": "The maximum soil moisture threshold for alerts.",
+    "temperatureSection": "Temperature",
+    "humiditySection": "Humidity",
+    "soilMoistureSection": "Soil Moisture",
+    "plant": {
+      "raumam": "Vietnamese Balm",
+      "bapcai": "Cabbage",
+      "cachua": "Tomato",
+      "xalach": "Lettuce",
+      "duachuot": "Cucumber",
+      "senda": "Lotus",
+      "raumui": "Mint",
+      "selectTitle": "Select Plant Preset",
+      "selectPlaceholder": "Choose a plant or custom",
+      "custom": "Custom"
+    }
   },
   "auth": {
     "email": "Email",

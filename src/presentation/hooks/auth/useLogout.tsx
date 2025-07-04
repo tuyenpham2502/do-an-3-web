@@ -13,7 +13,9 @@ export const useLogout = () => {
       logOut(credentials, {
         onSuccess: () => logOutHandle(navigate),
         onError: () => logOutHandle(navigate),
-        onSettled: () => logOutHandle(navigate),
+        onSettled: () => {
+          logOutHandle(navigate);
+        },
       });
     },
     ...rest,

@@ -1,6 +1,10 @@
-import { UserResponse } from '@/domain/models/User';
-import { useGetApi } from '@/infrastructure/hooks/useApi';
+import { useGetApi, usePostApi } from '@/infrastructure/hooks/useApi';
+import { UseQueryOptions } from '@tanstack/react-query';
 
 export interface UserRepository {
-  getUsers: () => ReturnType<typeof useGetApi<UserResponse[]>>;
+  getUsers: (
+    queryParams: Record<string, string | number | boolean | undefined>,
+    options?: Omit<UseQueryOptions<any, any>, 'queryKey' | 'queryFn'>
+  ) => ReturnType<typeof useGetApi<any>>;
+  createUser: () => ReturnType<typeof usePostApi<any, any>>;
 }

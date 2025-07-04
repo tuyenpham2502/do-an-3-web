@@ -8,11 +8,11 @@ export const Constants = {
   ROLES: {
     ADMIN: {
       name: 'Admin',
-      value: 'admin',
+      value: 'ADMIN',
     },
     USER: {
       name: 'User',
-      value: 'user',
+      value: 'USER',
     },
   },
 
